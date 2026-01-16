@@ -20,9 +20,9 @@ export default function Timer() {
         setClickCount(clickCount => clickCount + 1);
 
 
-       
+
         setTimerIcon('||')
-        const myTimer = setInterval(() => {setSeconds(second => second + 1)}, 1000);
+        const myTimer = setInterval(() => { setSeconds((second) =>  second + 1) }, 1000);
         console.log(myTimer);
 
 
