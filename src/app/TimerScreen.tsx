@@ -1,8 +1,6 @@
 import {View, Text, TouchableOpacity, GestureResponderEvent, Alert } from 'react-native';
-import StopWatch from './components/Stopwatch';
-import Timer from './components/Timer';
 import React from 'react';
-
+import StopWatch  from './components/StopWatch';
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
   function AddTimer(event: GestureResponderEvent): void {
@@ -18,7 +16,7 @@ export default function TimerScreen() {
                 <Text style={{color: 'white', fontSize: 40, textAlign: 'center'}}>ADD TIMER</Text>
               </TouchableOpacity>
 
-              <Timer />
+              <StopWatch activity={'Studying'} />
     </View>
   );
 }
