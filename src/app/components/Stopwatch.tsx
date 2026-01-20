@@ -48,24 +48,26 @@ export default function StopWatch(props: StopWatchProps) {
     }
     if (buttonState == "INITIAL") {
         return (
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity}</Text>
-                <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} </Text>
-                <Text>helllloooo</Text>
+            <View style={{flexDirection:'column', justifyContent: 'center'}}>
+                <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+
                 <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>tart</Text>
+                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                 </TouchableOpacity>
             </View>
+            </View>
         );
     }
     if (buttonState == 'RUNNING') {
-        return (<View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity}  StopWatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
-
+        return (<View style={{flexDirection:'column', justifyContent: 'center'}}>
+                <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={pause}>
                 <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Pause</Text>
             </TouchableOpacity>
@@ -75,14 +77,15 @@ export default function StopWatch(props: StopWatchProps) {
                 <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
             </TouchableOpacity>
 
+        </View>
         </View>)
     }
 
     if (buttonState == 'PAUSED') {
-        return (<View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity}  StopWatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
-
+        return (<View style={{flexDirection:'column', justifyContent: 'center'}}>
+                <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
                 <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
             </TouchableOpacity>
@@ -93,15 +96,17 @@ export default function StopWatch(props: StopWatchProps) {
             </TouchableOpacity>
 
         </View>
+        </View>
 
 
         )
     }
 
     if (buttonState == "CLEARED") {
-        return (<View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity}  StopWatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
+        return (<View style={{flexDirection:'column', justifyContent: 'center'}}>
+                <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 
             <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
                 <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
@@ -113,6 +118,7 @@ export default function StopWatch(props: StopWatchProps) {
                 <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
             </TouchableOpacity>
 
+        </View>
         </View>)
 
     }
@@ -121,7 +127,7 @@ export default function StopWatch(props: StopWatchProps) {
                 <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity}</Text>
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} </Text>
                 <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>tart</Text>
+                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
