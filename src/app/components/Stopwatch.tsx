@@ -53,7 +53,7 @@ export default function StopWatch(props: StopWatchProps) {
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 
-                <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
+                <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
@@ -86,7 +86,7 @@ export default function StopWatch(props: StopWatchProps) {
                 <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
+            <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 80 }} onPress={start}>
                 <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
             </TouchableOpacity>
 
@@ -108,7 +108,7 @@ export default function StopWatch(props: StopWatchProps) {
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} seconds</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 
-            <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
+            <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
                 <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
             </TouchableOpacity>
 
