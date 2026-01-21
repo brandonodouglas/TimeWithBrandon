@@ -17,9 +17,24 @@ export default function StopWatch(props: StopWatchProps) {
     // STATES: INITIAL, RUNNING, CLEARED, PAUSED,
     const [buttonState, setButtonState] = useState('INITIAL');
 
+
+    // Handling hh:mm:ss formatting
+    // Seconds
+    // Minutes
+    // Hours
+
     function start() {
+        let mySeconds;
         // start the timer and store the intervalID
-        var intervalID = setInterval(function () { setSeconds(seconds => seconds + 1) }, 1000);
+        var intervalID = setInterval(function () {
+            setSeconds(seconds => seconds + 1)
+            console.log({seconds});
+
+            
+
+
+
+        }, 1000);
         setTimerID(intervalID);
         setButtonState('RUNNING');
     }
@@ -115,18 +130,7 @@ export default function StopWatch(props: StopWatchProps) {
         </View>)
 
     }
-    return (
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity}</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{seconds} </Text>
-            <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={start}>
-                <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
-                <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
-            </TouchableOpacity>
-        </View>
-    )
+  
 
 
 
