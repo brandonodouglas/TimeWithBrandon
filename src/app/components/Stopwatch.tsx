@@ -32,7 +32,6 @@ export default function StopWatch(props: StopWatchProps) {
         // start the timer and store the intervalID
         var intervalID = setInterval(function () {
             // clearInterval(intervalID)function runs and returns it stops
-            console.log(timerStop);
             if (timerStop) {
                 clearInterval(intervalID);
                 clear();
@@ -40,7 +39,6 @@ export default function StopWatch(props: StopWatchProps) {
                 // Just a fancy arrow function
                 setSeconds((seconds) => {
                     if (seconds > 8) {
-                        console.log("remove the padding");
                         setSecondsPadding('');
                     } else {
                         setSecondsPadding('0')
@@ -48,7 +46,6 @@ export default function StopWatch(props: StopWatchProps) {
                     if (seconds == 59) {
                         setMinutes((minutes => {
                             if (minutes > 8) {
-                                console.log("remove the padding for minutes");
                                 setMinutesPadding('');
                             } else {
                                 setMinutesPadding('0')
@@ -56,13 +53,11 @@ export default function StopWatch(props: StopWatchProps) {
                             if (minutes == 59) {
                                 setHours((hours) => {
                                     if (hours > 8) {
-                                        console.log("remove the padding");
                                         setHoursPadding('');
                                     } else {
                                         setHoursPadding('0')
                                     }
                                     if (hours == 97) {
-                                        console.log("maximum timer setting rearched, stopping and restting imer.");
                                         timerStop = true;
                                         return 0;
                                     }
@@ -89,7 +84,6 @@ export default function StopWatch(props: StopWatchProps) {
         }
     }
     function clear() {
-        console.log('Attempting to stop timerID: ' + { timerID });
         clearInterval(timerID);
         setSeconds(0);
         setSecondsPadding("0");
@@ -98,16 +92,13 @@ export default function StopWatch(props: StopWatchProps) {
         setMinutes(0);
         setHours(0);
         setButtonState('CLEARED');
-        console.log("Timer stopped");
     }
     function pause() {
-        console.log("Paused pressed and seconds is currently: " + { seconds });
         clearInterval(timerID);
         setSeconds(seconds);
         setMinutes(minutes);
         setHours(hours);
         setButtonState('PAUSED')
-        console.log("timer paused");
     }
     if (buttonState == "INITIAL") {
         return (
