@@ -21,9 +21,13 @@ export default function StopWatch(props: StopWatchProps) {
     const [buttonState, setButtonState] = useState('INITIAL');
     // For padding zeroes to go from (h:m:s) format to  (hh:ss:mm) format, starting with seconds
     const [secondsPadding, setSecondsPadding] = useState("0");
-   
+    const [minutesPadding, setMinutesPadding] = useState("0");
+    const [hoursPadding, setHoursPadding] = useState("0");
 
-    
+
+
+
+
 
 
     // This function handles the majority of the hh:mm:ss processing
@@ -41,13 +45,28 @@ export default function StopWatch(props: StopWatchProps) {
                 }
                 if (seconds == 59) {
                     setMinutes((minutes => {
+                        if (minutes > 8) {
+                            console.log("remove the padding for minutes");
+                            setMinutesPadding('');
+                        } else {
+                            setMinutesPadding('0')
+                        }
+
+
                         if (minutes == 59) {
                             setHours((hours) => {
+                                if (hours > 8) {
+                                    console.log("remove the padding");
+                                    setHoursPadding('');
+                                } else {
+                                    setHoursPadding('0')
+                                }
                                 if (hours == 97) {
                                     console.log("maximum timer setting rearched, reset timer.");
                                     setSeconds(0);
                                     setMinutes(0);
                                     setHours(0);
+                                   
                                     return 0;
                                 }
                                 setMinutes(0);
@@ -71,7 +90,9 @@ export default function StopWatch(props: StopWatchProps) {
         console.log('Attempting to stop timerID: ' + { timerID });
         clearInterval(timerID);
         setSeconds(0);
-        setSecondsPadding("0")
+        setSecondsPadding("0");
+        setMinutesPadding("0");
+        setHoursPadding("0");
         setMinutes(0);
         setHours(0);
         setButtonState('CLEARED');
@@ -95,7 +116,7 @@ export default function StopWatch(props: StopWatchProps) {
         return (
             <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
                 <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-                <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
@@ -111,7 +132,7 @@ export default function StopWatch(props: StopWatchProps) {
     if (buttonState == 'RUNNING') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
+            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={pause}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Pause</Text>
@@ -128,7 +149,7 @@ export default function StopWatch(props: StopWatchProps) {
     if (buttonState == 'PAUSED') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
+            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 80 }} onPress={start}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
@@ -149,7 +170,7 @@ export default function StopWatch(props: StopWatchProps) {
     if (buttonState == "CLEARED") {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
+            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 
                 <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
