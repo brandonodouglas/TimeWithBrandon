@@ -11,24 +11,41 @@ type StopWatchProps = {
 // The stopwatch itself which follows - https://www.online-stopwatch.com/
 export default function StopWatch(props: StopWatchProps) {
     const [timerID, setTimerID] = useState(0)
+    // These are for the stopwatch itself (unformatted so far)
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
+    const [hours, setHours] = useState(0);
     // State management for the stopwatch
     const [isPlaying, setIsPlaying] = useState(false);
     // STATES: INITIAL, RUNNING, CLEARED, PAUSED,
     const [buttonState, setButtonState] = useState('INITIAL');
 
 
-// This function handles the majority of the hh:mm:ss processing
+    // This function handles the majority of the hh:mm:ss processing
     function start() {
         let mySeconds;
         // start the timer and store the intervalID
         var intervalID = setInterval(function () {
             // Just a fancy arrow function
             setSeconds((seconds) => {
-                if (seconds == 6) {
+                if (seconds == 59) {
                     setMinutes((minutes => {
-                         return minutes + 1 }))
+                        if (minutes == 59) {
+                            setHours((hours) => {
+                                if (hours == 97) {
+                                    console.log("maximum timer setting rearched, reset timer.");
+                                    setSeconds(0);
+                                    setMinutes(0);
+                                    setHours(0);
+                                    return 0;
+                                }
+                                setMinutes(0);
+                                return hours + 1
+                            });
+                            return 0;
+                        }
+                        return minutes + 1
+                    }))
                     return 0
                 }
                 else {
@@ -44,6 +61,7 @@ export default function StopWatch(props: StopWatchProps) {
         clearInterval(timerID);
         setSeconds(0);
         setMinutes(0);
+        setHours(0);
         setButtonState('CLEARED');
         console.log("Timer stopped");
     }
@@ -51,8 +69,9 @@ export default function StopWatch(props: StopWatchProps) {
     function pause() {
         console.log("Paused pressed and seconds is currently: " + { seconds });
         clearInterval(timerID);
-        setSeconds(seconds)
+        setSeconds(seconds);
         setMinutes(minutes);
+        setHours(hours);
         setButtonState('PAUSED')
         console.log("timer paused");
     }
@@ -64,7 +83,7 @@ export default function StopWatch(props: StopWatchProps) {
         return (
             <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
                 <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-                <Text style={{ fontSize: 20, textAlign: 'center' }}>{minutes}:{seconds} (mm:ss)</Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{seconds} (hh:mm:ss)</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
@@ -80,7 +99,7 @@ export default function StopWatch(props: StopWatchProps) {
     if (buttonState == 'RUNNING') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{minutes}:{seconds} (mm:ss)</Text>
+            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={pause}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Pause</Text>
@@ -97,7 +116,7 @@ export default function StopWatch(props: StopWatchProps) {
     if (buttonState == 'PAUSED') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{minutes}:{seconds} (mm:ss)</Text>
+            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 80 }} onPress={start}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
@@ -118,7 +137,7 @@ export default function StopWatch(props: StopWatchProps) {
     if (buttonState == "CLEARED") {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{minutes}:{seconds} (mm:ss)</Text>
+            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hours}:{minutes}:{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 
                 <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
