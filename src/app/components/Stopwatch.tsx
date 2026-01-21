@@ -12,9 +12,9 @@ type StopWatchProps = {
 export default function StopWatch(props: StopWatchProps) {
     const [timerID, setTimerID] = useState(0)
     // These are for the stopwatch itself (unformatted so far)
-    const [seconds, setSeconds] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [hours, setHours] = useState(0);
+    const [seconds, setSeconds] = useState(58);
+    const [minutes, setMinutes] = useState(59);
+    const [hours, setHours] = useState(97);
     // State management for the stopwatch
     const [isPlaying, setIsPlaying] = useState(false);
     // STATES: INITIAL, RUNNING, CLEARED, PAUSED,
@@ -23,68 +23,70 @@ export default function StopWatch(props: StopWatchProps) {
     const [secondsPadding, setSecondsPadding] = useState("0");
     const [minutesPadding, setMinutesPadding] = useState("0");
     const [hoursPadding, setHoursPadding] = useState("0");
-
-
-
-
-
-
+    const [stop, setStop] = useState(false);
 
     // This function handles the majority of the hh:mm:ss processing
     function start() {
-        let mySeconds;
+        const maxHours = 0;
+        let timerStop = false;
         // start the timer and store the intervalID
         var intervalID = setInterval(function () {
-            // Just a fancy arrow function
-            setSeconds((seconds) => {
-                if (seconds > 8) {
-                    console.log("remove the padding");
-                    setSecondsPadding('');
-                } else {
-                    setSecondsPadding('0')
-                }
-                if (seconds == 59) {
-                    setMinutes((minutes => {
-                        if (minutes > 8) {
-                            console.log("remove the padding for minutes");
-                            setMinutesPadding('');
-                        } else {
-                            setMinutesPadding('0')
-                        }
-
-
-                        if (minutes == 59) {
-                            setHours((hours) => {
-                                if (hours > 8) {
-                                    console.log("remove the padding");
-                                    setHoursPadding('');
-                                } else {
-                                    setHoursPadding('0')
-                                }
-                                if (hours == 97) {
-                                    console.log("maximum timer setting rearched, reset timer.");
-                                    setSeconds(0);
+            // clearInterval(intervalID)function runs and returns it stops
+            console.log(timerStop);
+            if (timerStop) {
+                clearInterval(intervalID);
+                clear();
+            } else {
+                // Just a fancy arrow function
+                setSeconds((seconds) => {
+                    if (seconds > 8) {
+                        console.log("remove the padding");
+                        setSecondsPadding('');
+                    } else {
+                        setSecondsPadding('0')
+                    }
+                    if (seconds == 59) {
+                        setMinutes((minutes => {
+                            if (minutes > 8) {
+                                console.log("remove the padding for minutes");
+                                setMinutesPadding('');
+                            } else {
+                                setMinutesPadding('0')
+                            }
+                            if (minutes == 59) {
+                                setHours((hours) => {
+                                    if (hours > 8) {
+                                        console.log("remove the padding");
+                                        setHoursPadding('');
+                                    } else {
+                                        setHoursPadding('0')
+                                    }
+                                    if (hours == 97) {
+                                        console.log("maximum timer setting rearched, stopping and restting imer.");
+                                        timerStop = true;
+                                        return 0;
+                                    }
                                     setMinutes(0);
-                                    setHours(0);
-                                   
-                                    return 0;
-                                }
-                                setMinutes(0);
-                                return hours + 1
-                            });
-                            return 0;
-                        }
-                        return minutes + 1
-                    }))
-                    return 0
-                }
-                else {
-                    return seconds + 1
-                }
-            })
+                                    return hours + 1
+                                });
+                                return 0;
+                            }
+                            return minutes + 1
+                        }))
+                        return 0
+                    }
+                    else {
+                        return seconds + 1
+                    }
+                })
+            }
         }, 1000);
-        setTimerID(intervalID);
-        setButtonState('RUNNING');
+        if (!timerStop) {
+            setTimerID(intervalID);
+            setButtonState('RUNNING');
+        } else {
+            setButtonState('INITIAL');
+        }
     }
     function clear() {
         console.log('Attempting to stop timerID: ' + { timerID });
@@ -98,7 +100,6 @@ export default function StopWatch(props: StopWatchProps) {
         setButtonState('CLEARED');
         console.log("Timer stopped");
     }
-
     function pause() {
         console.log("Paused pressed and seconds is currently: " + { seconds });
         clearInterval(timerID);
@@ -108,10 +109,6 @@ export default function StopWatch(props: StopWatchProps) {
         setButtonState('PAUSED')
         console.log("timer paused");
     }
-
-    // Here is the the return related code
-
-
     if (buttonState == "INITIAL") {
         return (
             <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
@@ -128,7 +125,6 @@ export default function StopWatch(props: StopWatchProps) {
             </View>
         );
     }
-
     if (buttonState == 'RUNNING') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
@@ -141,11 +137,9 @@ export default function StopWatch(props: StopWatchProps) {
                 <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                 </TouchableOpacity>
-
             </View>
         </View>)
     }
-
     if (buttonState == 'PAUSED') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
@@ -154,42 +148,25 @@ export default function StopWatch(props: StopWatchProps) {
                 <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 80 }} onPress={start}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
                 </TouchableOpacity>
-
-
                 <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                 </TouchableOpacity>
-
             </View>
         </View>
-
-
         )
     }
-
     if (buttonState == "CLEARED") {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
             <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.activity} stopwatch</Text>
             <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-
                 <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
                 </TouchableOpacity>
-
-
-
                 <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                 </TouchableOpacity>
-
             </View>
         </View>)
-
     }
-
-
-
-
-
 }
