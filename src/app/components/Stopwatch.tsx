@@ -12,9 +12,9 @@ type StopWatchProps = {
 export default function StopWatch(props: StopWatchProps) {
     const [timerID, setTimerID] = useState(0)
     // These are for the stopwatch itself (unformatted so far)
-    const [seconds, setSeconds] = useState(58);
-    const [minutes, setMinutes] = useState(59);
-    const [hours, setHours] = useState(97);
+    const [seconds, setSeconds] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+    const [hours, setHours] = useState(0);
     // State management for the stopwatch
     const [isPlaying, setIsPlaying] = useState(false);
     // STATES: INITIAL, RUNNING, CLEARED, PAUSED,

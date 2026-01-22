@@ -12,11 +12,11 @@ export default function TimerScreen() {
       <Text style={{ fontSize: 30, textAlign: 'center'}}>⏰Timer Screen</Text>
       <Text style={{ fontSize: 25, textAlign: 'center'}}>You currently have 0 timers.</Text>
       <Text style={{ fontSize: 25, textAlign: 'center'}}>Start one below!</Text>
-      <TouchableOpacity style={{backgroundColor: "green"}} onPress={AddTimer}>
-                <Text style={{color: 'white', fontSize: 40, textAlign: 'center'}}>ADD TIMER</Text>
+      <TouchableOpacity style={{backgroundColor: "#b94b4bff", borderColor: 'red', margin: 20, padding: 10}} onPress={AddTimer}>
+                <Text style={{color: 'white', fontSize: 20, textAlign: 'center'}}>Add Timer</Text>
               </TouchableOpacity>
 
-              <StopWatch activity={'Studying'} />
+              {/* <StopWatch activity={'Studying'} />*/}
     </View>
   );
 }
