@@ -1,6 +1,13 @@
 import {View, Text, TouchableOpacity, GestureResponderEvent, Alert } from 'react-native';
 import React from 'react';
-import StopWatch  from './components/StopWatch';
+// import StopWatch  from './components/StopWatch';
+
+
+const STOPWATCHES = [{id: '0', activity:'Enter your stopwatches below.'}];
+
+type stopwatchesProps = {activity: string};
+
+
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
   function AddTimer(event: GestureResponderEvent): void {
