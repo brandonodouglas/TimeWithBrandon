@@ -1,44 +1,54 @@
-import { View, Text, TouchableOpacity, GestureResponderEvent, Alert, FlatList, StatusBar, StyleSheet } from 'react-native';
-import React from 'react';
+import { View, Text, TouchableOpacity, GestureResponderEvent, Alert, FlatList, StatusBar, StyleSheet, TextInput, TextInputSubmitEditingEvent } from 'react-native';
+import React, { useState } from 'react';
 import StopWatch from './components/Stopwatch';
 
 
-const STOPWATCHES = [{ id: '0', activity: 'Enter your stopwatches below.' }];
+
+
 
 type stopwatchesProps = { activity: string };
+let nextId = 0;
 
 
-type ItemProps = {title: string};
 
-const Item = ({title}: ItemProps) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
-  function AddTimer(event: GestureResponderEvent): void {
-    Alert.alert("Timer started");
+  const myArray : { activity: string; }[] = [];
+  const [data, setData] = useState(myArray);
+  const [stopWatchName, setStopWatchName] = useState('');
+
+
+  // For the activity timer on input
+  const [text, onChangeText] = useState('useless text');
+  const [number, onChangeNumber] = useState('');
+
+  function AddTimer(e: TextInputSubmitEditingEvent): void {
+    setStopWatchName(e.nativeEvent.text);
+    console.log(stopWatchName)
+    setData([...data, {activity: stopWatchName}]);
+    return (Alert.alert(data.length.toString()));
+
   }
 
-  return (
-    <View>
-      <Text style={{ fontSize: 30, textAlign: 'center' }}>⏰Timer Screen</Text>
-      <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have 0 timers.</Text>
-      <Text style={{ fontSize: 25, textAlign: 'center' }}>Start one below!</Text>
-      <TouchableOpacity style={{ backgroundColor: "#b94b4bff", borderColor: 'red', margin: 20, padding: 10 }} onPress={AddTimer}>
-        <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Add Timer</Text>
-      </TouchableOpacity>
-      <FlatList
-        data={STOPWATCHES}
-        renderItem={({ item }) => <StopWatch activity={item.activity} />}
-        keyExtractor={item => item.id}
-      />
 
-      {/* />*/}
+  return (
+    <View style={{ justifyContent: 'center', padding: 20 }}>
+      <Text style={{ fontSize: 30, textAlign: 'center' }}>My Timers</Text>
+      <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {data.length - 1} timers.</Text>
+      <Text style={{ fontSize: 25, textAlign: 'center' }}>Start one below!</Text>
+      <TextInput style={styles.input} placeholder='Enter timer activity here' onSubmitEditing={AddTimer} />
+      <FlatList
+        data={data}
+        renderItem={({ item, index }) => (<StopWatch activity={stopWatchName} />)}
+        keyExtractor={(contact, index) => String(index)}
+
+
+      />
+      {/* Timer component would go here>*/}
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +62,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 32,
+    fontSize: 25,
   },
+  input: {
+    fontSize: 15,
+    textAlign: 'center',
+    borderColor: '#b94b4bff',
+    borderRadius: 5,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    margin: 10,
+    padding: 10,
+  }
 });
 
