@@ -6,41 +6,55 @@ import StopWatch from './components/Stopwatch';
 
 
 
-type stopwatchesProps = { activity: string };
-let nextId = 0;
+
+
+  let nextId = 0;
 
 
 
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
-  const myArray : { activity: string; }[] = [];
-  const [data, setData] = useState(myArray);
-  const [stopWatchName, setStopWatchName] = useState('');
+  const result : string[] = [];
+
+  const [stopWatchLabels, setStopWatchLabels] = useState(result); // The name/text of the stopwatches
+
+  const [data, setData] = useState([]);
+  const [mystopWatchName, setMyStopWatchName] = useState('');
 
 
   // For the activity timer on input
   const [text, onChangeText] = useState('useless text');
   const [number, onChangeNumber] = useState('');
 
-  function AddTimer(e: TextInputSubmitEditingEvent): void {
-    setStopWatchName(e.nativeEvent.text);
-    console.log(stopWatchName)
-    setData([...data, {activity: stopWatchName}]);
-    return (Alert.alert(data.length.toString()));
-
-  }
-
+ 
 
   return (
     <View style={{ justifyContent: 'center', padding: 20 }}>
       <Text style={{ fontSize: 30, textAlign: 'center' }}>My Timers</Text>
-      <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {data.length - 1} timers.</Text>
+      <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {data.length} timers.</Text>
       <Text style={{ fontSize: 25, textAlign: 'center' }}>Start one below!</Text>
-      <TextInput style={styles.input} placeholder='Enter timer activity here' onSubmitEditing={AddTimer} />
+      <TextInput style={styles.input} placeholder='Enter timer activity here'  onSubmitEditing={event => {
+        setStopWatchLabels([...stopWatchLabels, event.nativeEvent.text]);
+        console.log('The array looks like: ' + stopWatchLabels.toString() + ' and has length of: ' + stopWatchLabels.length);
+
+       // setData([...data, { stopWatchName: mystopWatchName}]);
+
+
+        // Add stopwatch label names to string list
+        // For each component, put into array of objects
+        // Call flatlist
+       
+
+
+
+      }} />
+
+      {/* He we iterate through the string list and create a array of stopwatch timer objects */}
+
       <FlatList
-        data={data}
-        renderItem={({ item, index }) => (<StopWatch activity={stopWatchName} />)}
-        keyExtractor={(contact, index) => String(index)}
+        data={stopWatchLabels}
+        renderItem={({ item, index }) => (<StopWatch stopWatchName={item} />)}
+        keyExtractor={(item, index) => String(index)}
 
 
       />
