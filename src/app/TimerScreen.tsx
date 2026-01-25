@@ -15,18 +15,19 @@ import StopWatch from './components/Stopwatch';
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
   const result : string[] = [];
-
   const [stopWatchLabels, setStopWatchLabels] = useState(result); // The name/text of the stopwatches
-
   const [data, setData] = useState([]);
-  const [mystopWatchName, setMyStopWatchName] = useState('');
 
 
-  // For the activity timer on input
-  const [text, onChangeText] = useState('useless text');
-  const [number, onChangeNumber] = useState('');
+  //function to delete stopwatch by removing it from data lisst
+  const deleteStopwatch = () => {
+    Alert.alert('You want to delete a stopwatch.');
+  };
 
- 
+  const editStopwatch = () => {
+    Alert.alert("You want to edit a stopwatch")
+;  }
+
 
   return (
     <View style={{ justifyContent: 'center', padding: 20 }}>
@@ -53,7 +54,23 @@ export default function TimerScreen() {
 
       <FlatList
         data={stopWatchLabels}
-        renderItem={({ item, index }) => (<StopWatch stopWatchName={item} />)}
+        renderItem={({ item, index }) => (<View><StopWatch stopWatchName={item} />
+          <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 80 }} onPress={() => {
+            
+            
+            console.log("Deleting stopwatch with id: " + index); 
+            setStopWatchLabels([...stopWatchLabels.slice(0,index), ...stopWatchLabels.slice(index + 1)]);
+            
+            
+          }}>
+                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>delete stopwatch</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 80 }} onPress={() => console.log("Edit stopwatch with id: " + index + stopWatchLabels)}>
+                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>edit stopwatch</Text>
+                </TouchableOpacity>
+                
+                </View>
+        )}
         keyExtractor={(item, index) => String(index)}
 
 
