@@ -8,15 +8,17 @@ import StopWatch from './components/Stopwatch';
 
 
 
-  let nextId = 0;
+let nextId = 0;
 
 
 
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
-  const result : string[] = [];
+  const result: string[] = [];
   const [stopWatchLabels, setStopWatchLabels] = useState(result); // The name/text of the stopwatches
   const [data, setData] = useState([]);
+  // Counter which is an interator for the stopwatches
+  const [counter, setCounter] = useState(0);
 
 
   //function to delete stopwatch by removing it from data lisst
@@ -26,7 +28,8 @@ export default function TimerScreen() {
 
   const editStopwatch = () => {
     Alert.alert("You want to edit a stopwatch")
-;  }
+      ;
+  }
 
 
   return (
@@ -34,17 +37,16 @@ export default function TimerScreen() {
       <Text style={{ fontSize: 30, textAlign: 'center' }}>My Timers</Text>
       <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {data.length} timers.</Text>
       <Text style={{ fontSize: 25, textAlign: 'center' }}>Start one below!</Text>
-      <TextInput style={styles.input} placeholder='Enter timer activity here'  onSubmitEditing={event => {
+      <TextInput style={styles.input} placeholder='Enter timer activity here' onSubmitEditing={event => {
         setStopWatchLabels([...stopWatchLabels, event.nativeEvent.text]);
-        console.log('The array looks like: ' + stopWatchLabels.toString() + ' and has length of: ' + stopWatchLabels.length);
 
-       // setData([...data, { stopWatchName: mystopWatchName}]);
+        // setData([...data, { stopWatchName: mystopWatchName}]);
 
 
         // Add stopwatch label names to string list
         // For each component, put into array of objects
         // Call flatlist
-       
+
 
 
 
@@ -56,20 +58,35 @@ export default function TimerScreen() {
         data={stopWatchLabels}
         renderItem={({ item, index }) => (<View><StopWatch stopWatchName={item} />
           <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 80 }} onPress={() => {
-            
-            
-            console.log("Deleting stopwatch with id: " + index); 
-            setStopWatchLabels([...stopWatchLabels.slice(0,index), ...stopWatchLabels.slice(index + 1)]);
-            
-            
+
+
+            setStopWatchLabels([...stopWatchLabels.slice(0, index), ...stopWatchLabels.slice(index + 1)]);
+
+
           }}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>delete stopwatch</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 80 }} onPress={() => console.log("Edit stopwatch with id: " + index + stopWatchLabels)}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>edit stopwatch</Text>
-                </TouchableOpacity>
-                
-                </View>
+            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>delete stopwatch</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 80 }} onPress={() => {
+            console.log("The index clicked was: " + index); // index of item to update
+            // Copy array to temp array
+            let tempArray = [...stopWatchLabels];
+            tempArray[index] = "UPDATED!";
+            setStopWatchLabels(tempArray);
+
+
+          
+
+
+
+
+
+
+
+          }}>
+            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>edit stopwatch</Text>
+          </TouchableOpacity>
+
+        </View>
         )}
         keyExtractor={(item, index) => String(index)}
 
