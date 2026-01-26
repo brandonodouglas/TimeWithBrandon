@@ -1,6 +1,6 @@
 import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, use, useEffect, useState, } from "react";
-import { Alert, GestureResponderEvent, Text, TouchableOpacity, View } from "react-native";
-
+import { Alert, Button, GestureResponderEvent, Text, TouchableOpacity, View } from "react-native";
+import StopWatchLabel from "./StopwatchLabel";
 
 
 // Props, activity of stopwatch e.g. studying
@@ -12,7 +12,6 @@ type StopWatchProps = {
 export default function StopWatch(props: StopWatchProps) {
 
     //Props extraction
-
     const [timerID, setTimerID] = useState(0)
     // These are for the stopwatch itself (unformatted so far)
     const [seconds, setSeconds] = useState(0);
@@ -27,6 +26,7 @@ export default function StopWatch(props: StopWatchProps) {
     const [minutesPadding, setMinutesPadding] = useState("0");
     const [hoursPadding, setHoursPadding] = useState("0");
     const [stop, setStop] = useState(false);
+    const [editing, setEditing] = useState(false);
     
 
     // This function handles the majority of the hh:mm:ss processing
@@ -107,7 +107,7 @@ export default function StopWatch(props: StopWatchProps) {
     if (buttonState == "INITIAL") {
         return (
             <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.stopWatchName} stopwatch</Text>
+                <StopWatchLabel initialLabel={props.stopWatchName}/>
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
@@ -116,13 +116,15 @@ export default function StopWatch(props: StopWatchProps) {
                     <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                     </TouchableOpacity>
+                    
                 </View>
             </View>
         );
     }
     if (buttonState == 'RUNNING') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.stopWatchName} stopwatch</Text>
+                            <StopWatchLabel initialLabel={props.stopWatchName} />
+
             <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={pause}>
@@ -137,7 +139,8 @@ export default function StopWatch(props: StopWatchProps) {
     }
     if (buttonState == 'PAUSED') {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.stopWatchName} stopwatch</Text>
+                            <StopWatchLabel initialLabel={props.stopWatchName} />
+
             <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 80 }} onPress={start}>
@@ -152,7 +155,8 @@ export default function StopWatch(props: StopWatchProps) {
     }
     if (buttonState == "CLEARED") {
         return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'center', fontSize: 25 }}>{props.stopWatchName} stopwatch</Text>
+                            <StopWatchLabel initialLabel={props.stopWatchName} />
+
             <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>

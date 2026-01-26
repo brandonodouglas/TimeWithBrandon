@@ -35,9 +35,11 @@ export default function TimerScreen() {
   return (
     <View style={{ justifyContent: 'center', padding: 20 }}>
       <Text style={{ fontSize: 30, textAlign: 'center' }}>My Timers</Text>
-      <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {data.length} timers.</Text>
-      <Text style={{ fontSize: 25, textAlign: 'center' }}>Start one below!</Text>
-      <TextInput style={styles.input} placeholder='Enter timer activity here' onSubmitEditing={event => {
+      <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {stopWatchLabels.length} timers.</Text>
+      <Text style={{ fontSize: 15, textAlign: 'center' }}>Tap on the timer name to edit the time name.</Text>
+
+
+      <TextInput style={styles.input} placeholder='Enter timer name here' onSubmitEditing={event => {
         setStopWatchLabels([...stopWatchLabels, event.nativeEvent.text]);
 
         // setData([...data, { stopWatchName: mystopWatchName}]);
@@ -66,25 +68,7 @@ export default function TimerScreen() {
           }}>
             <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>delete stopwatch</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 80 }} onPress={() => {
-            console.log("The index clicked was: " + index); // index of item to update
-            // Copy array to temp array
-            let tempArray = [...stopWatchLabels];
-            tempArray[index] = "UPDATED!";
-            setStopWatchLabels(tempArray);
-
-
           
-
-
-
-
-
-
-
-          }}>
-            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>edit stopwatch</Text>
-          </TouchableOpacity>
 
         </View>
         )}
