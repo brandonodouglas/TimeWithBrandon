@@ -58,15 +58,17 @@ export default function TimerScreen() {
 
       <FlatList
         data={stopWatchLabels}
-        renderItem={({ item, index }) => (<View><StopWatch stopWatchName={item} />
-          <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 80 }} onPress={() => {
+        renderItem={({ item, index }) => (<View style={{alignItems: 'center',
+          flex: 1,
+          justifyContent: 'center'}}><StopWatch stopWatchName={item} />
+          <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 30 }} onPress={() => {
 
 
             setStopWatchLabels([...stopWatchLabels.slice(0, index), ...stopWatchLabels.slice(index + 1)]);
 
 
           }}>
-            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>delete stopwatch</Text>
+            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20, width: 80, height: 30 }}>delete</Text>
           </TouchableOpacity>
           
 

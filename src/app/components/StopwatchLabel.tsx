@@ -25,9 +25,8 @@ export default function StopWatchLabel(props: StopWatchLabelProps) {
     if (!editing) {
         return (
             <View>
-                <Text>Click on the stopwatch label to edit the stopwatch text.</Text>
                 <TouchableOpacity style={{}} onPress={startEdit}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>{myLabel} StopWatch</Text>
+                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 , fontWeight: "800"}}>{myLabel}</Text>
                 </TouchableOpacity>
             </View>
         )

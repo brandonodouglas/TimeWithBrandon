@@ -110,10 +110,10 @@ export default function StopWatch(props: StopWatchProps) {
                 <StopWatchLabel initialLabel={props.stopWatchName}/>
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                    <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
+                    <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 30 }} onPress={start}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
+                    <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                     </TouchableOpacity>
                     
@@ -127,11 +127,11 @@ export default function StopWatch(props: StopWatchProps) {
 
             <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 80 }} onPress={pause}>
+                <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 30 }} onPress={pause}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Pause</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
+                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                 </TouchableOpacity>
             </View>
@@ -143,10 +143,10 @@ export default function StopWatch(props: StopWatchProps) {
 
             <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 80 }} onPress={start}>
+                <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 30 }} onPress={start}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
+                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                 </TouchableOpacity>
             </View>
@@ -159,10 +159,10 @@ export default function StopWatch(props: StopWatchProps) {
 
             <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 80 }} onPress={start}>
+                <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 30 }} onPress={start}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 80 }} onPress={clear}>
+                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
                     <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                 </TouchableOpacity>
             </View>
