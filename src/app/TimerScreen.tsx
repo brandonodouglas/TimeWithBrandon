@@ -1,8 +1,12 @@
-import { View, Text, TouchableOpacity, GestureResponderEvent, Alert, FlatList, StatusBar, StyleSheet, TextInput, TextInputSubmitEditingEvent } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, FlatList, StatusBar, StyleSheet, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import StopWatch from './components/Stopwatch';
 import StopWatchLabel from './components/StopwatchLabel';
 import uuid from 'react-native-uuid';
+
+import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
+import DraggableStopwatches from './components/DraggableStopwatches';
+
 type StopWatchData = {
   id: string;
   label: string;
@@ -48,6 +52,10 @@ export default function TimerScreen() {
         )}
         keyExtractor={(item) => item.id}
       />
+
+
+      {/* https://github.com/fivecar/react-native-draglist */}
+      <DraggableStopwatches />
     </View>
   );
 }

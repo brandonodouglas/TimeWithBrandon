@@ -2,7 +2,6 @@ import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, use, useEf
 import { Alert, StyleSheet, Button, GestureResponderEvent, Text, TextInput, TouchableOpacity, View, TextInputSubmitEditingEvent } from "react-native";
 
 
-
 // Initial label
 type StopWatchLabelProps = {
     initialLabel: string;
@@ -11,9 +10,6 @@ type StopWatchLabelProps = {
 export default function StopWatchLabel(props: StopWatchLabelProps) {
     const [editing, setEditing] = useState(false);
     const [myLabel, setMyLabel] = useState(props.initialLabel);
-
-
-
     // Edit stopwatch label
     function startEdit(event: GestureResponderEvent): void {
         setEditing(true);
@@ -31,14 +27,9 @@ export default function StopWatchLabel(props: StopWatchLabelProps) {
             </View>
         )
     } else {
-       
-
         return(<TextInput style={styles.input} onSubmitEditing={submitHandler}></TextInput>);
 
     }
-
-
-
 }
  const styles = StyleSheet.create({
     input: {
