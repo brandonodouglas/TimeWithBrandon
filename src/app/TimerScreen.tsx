@@ -6,6 +6,7 @@ import uuid from 'react-native-uuid';
 
 import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
 import DraggableStopwatches from './components/DraggableStopwatches';
+import StopWatchDraggable from './components/StopWatchDraggable';
 
 type StopWatchData = {
   id: string;
@@ -28,6 +29,8 @@ export default function TimerScreen() {
   }
   return (
     <View style={{ justifyContent: 'center', padding: 20 }}>
+              <Text style={{textAlign: 'center', fontSize: 90}}>⏰</Text>        
+
       <Text style={{ fontSize: 30, textAlign: 'center' }}>My Timers</Text>
       <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {stopWatchLabels.length} timers.</Text>
       <Text style={{ fontSize: 15, textAlign: 'center' }}>Tap on the timer name to edit the time name.</Text>
@@ -54,8 +57,7 @@ export default function TimerScreen() {
       />
 
 
-      {/* https://github.com/fivecar/react-native-draglist */}
-      <DraggableStopwatches />
+      
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Button, Pressable, GestureResponderEvent, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Button, Pressable, GestureResponderEvent, Alert, TouchableOpacity,Image } from 'react-native';
 import { Link, useRouter } from "expo-router";
 
 
@@ -9,15 +9,16 @@ export default function HomeScreen() {
 
 
   return (
-    <View style={{flex: 1, flexDirection: 'column'}}>
-      <Text style={{ flex: 1, fontSize: 30, textAlign: 'center' }}>⏰TimeWithBrandon</Text>
-      <Text style={{ flex: 2, fontSize: 30, textAlign: 'center' }}>Time is money.</Text>
-      <Text style={{ flex: 3, fontSize: 25, textAlign: 'center' }}>So why waste it?</Text>
-      <Text style={{ flex: 4, fontSize: 15, textAlign: 'center' }}>Take back control of your time TODAY!</Text>
+    <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+      <Image style={{ width: 150, height: 150, borderRadius: 70,}} source={require("/Users/brandon/TimeTrackApp/TimeWithBrandon/assets/images/brandonface.png")} />
+      <Text style={{ flex: 1, fontSize: 30, textAlign: 'center' }}>TimeWithBrandon</Text>
+      <Text style={{ flex: 2, fontSize: 25, textAlign: 'center' }}>Time is money.</Text>
+      <Text style={{ flex: 3, fontSize: 25, textAlign: 'center' }}>...Why waste it?</Text>
+      <Text style={{ flex: 4, fontSize: 35, textAlign: 'center' }}>Take back control of your time TODAY!</Text>
       <Text style={{ flex: 5, fontSize: 10, textAlign: 'center' }}>Code by @brandonodouglas 2026</Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => {router.push("/TimerScreen")}}>
-          <Text style={{color: 'white', fontSize: 40}}>START</Text>
+      <TouchableOpacity style={styles.button} onPress={() => {router.push("/FolderScreen")}}>
+          <Text style={{color: 'white', fontSize: 40,}}>START</Text>
         </TouchableOpacity>
     </View>
   );
@@ -33,6 +34,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#b94b4bff',
     padding: 10,
+    margin: 20,
+    width: 250,
+    borderCurve: 'circular',
+    borderRadius: 40
   },
   countContainer: {
     alignItems: 'center',
