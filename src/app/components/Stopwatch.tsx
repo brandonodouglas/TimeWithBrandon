@@ -6,27 +6,27 @@ import StopWatchLabel from "./StopwatchLabel";
 // Props, activity of stopwatch e.g. studying
 type StopWatchProps = {
     stopWatchName: string;
+    deleted: boolean;
 }
 
 // The stopwatch itself which follows - https://www.online-stopwatch.com/
 export default function StopWatch(props: StopWatchProps) {
-
     //Props extraction
     const [timerID, setTimerID] = useState(0)
     // These are for the stopwatch itself (unformatted so far)
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [hours, setHours] = useState(0);
-    // State management for the st 8k,i........................lo.----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                                               ________≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈opwatch
-    const [isPlaying, setIsPlaying] = useState(false);
     // STATES: INITIAL, RUNNING, CLEARED, PAUSED,
     const [buttonState, setButtonState] = useState('INITIAL');
     // For padding zeroes to go from (h:m:s) format to  (hh:ss:mm) format, starting with seconds
     const [secondsPadding, setSecondsPadding] = useState("0");
     const [minutesPadding, setMinutesPadding] = useState("0");
     const [hoursPadding, setHoursPadding] = useState("0");
-    const [stop, setStop] = useState(false);
-    const [editing, setEditing] = useState(false);
+    const [deleted, setDeleted] = useState(false); 
+
+
+
     
 
     // This function handles the majority of the hh:mm:ss processing
@@ -97,6 +97,12 @@ export default function StopWatch(props: StopWatchProps) {
         setHours(0);
         setButtonState('CLEARED');
     }
+
+    // Delete the stopwatch
+    function deleteMe() {
+        setDeleted(true)
+
+    }
     function pause() {
         clearInterval(timerID);
         setSeconds(seconds);
@@ -104,10 +110,61 @@ export default function StopWatch(props: StopWatchProps) {
         setHours(hours);
         setButtonState('PAUSED')
     }
-    if (buttonState == "INITIAL") {
-        return (
-            <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                <StopWatchLabel initialLabel={props.stopWatchName}/>
+    if(deleted == false){
+        if (buttonState == "INITIAL") {
+            return (
+                <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                    <StopWatchLabel initialLabel={props.stopWatchName}/>
+                    <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 30 }} onPress={start}>
+                            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
+                            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
+                        </TouchableOpacity>
+                        
+                        
+                    </View>
+                </View>
+            );
+        }
+        if (buttonState == 'RUNNING') {
+            return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                                <StopWatchLabel initialLabel={props.stopWatchName} />
+    
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 30 }} onPress={pause}>
+                        <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Pause</Text>
+                    </TouchableOpacity>
+    
+                    <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
+                        <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>)
+        }
+        if (buttonState == 'PAUSED') {
+            return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                                <StopWatchLabel initialLabel={props.stopWatchName} />
+    
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 30 }} onPress={start}>
+                        <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
+                        <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            )
+        }
+        if (buttonState == "CLEARED") {
+            return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                                <StopWatchLabel initialLabel={props.stopWatchName} />
+    
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 30 }} onPress={start}>
@@ -116,56 +173,12 @@ export default function StopWatch(props: StopWatchProps) {
                     <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
                     </TouchableOpacity>
-                    
                 </View>
-            </View>
-        );
-    }
-    if (buttonState == 'RUNNING') {
-        return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                            <StopWatchLabel initialLabel={props.stopWatchName} />
+            </View>)
+        }
 
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'lightgreen', width: 80, height: 30 }} onPress={pause}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Pause</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
-                </TouchableOpacity>
-            </View>
-        </View>)
+    } else {
+        return(<View><Text>Deleted itemnidk</Text></View>);
     }
-    if (buttonState == 'PAUSED') {
-        return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                            <StopWatchLabel initialLabel={props.stopWatchName} />
-
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'lightblue', width: 80, height: 30 }} onPress={start}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Continue</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-        )
-    }
-    if (buttonState == "CLEARED") {
-        return (<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                            <StopWatchLabel initialLabel={props.stopWatchName} />
-
-            <Text style={{ fontSize: 20, textAlign: 'center' }}>{hoursPadding}{hours}:{minutesPadding}{minutes}:{secondsPadding}{seconds} (hh:mm:ss)</Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity style={{ backgroundColor: 'limegreen', width: 80, height: 30 }} onPress={start}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Start</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={clear}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Clear</Text>
-                </TouchableOpacity>
-            </View>
-        </View>)
-    }
+    
 }

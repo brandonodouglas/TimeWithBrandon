@@ -1,84 +1,80 @@
 import { View, Text, TouchableOpacity, GestureResponderEvent, Alert, FlatList, StatusBar, StyleSheet, TextInput, TextInputSubmitEditingEvent } from 'react-native';
 import React, { useState } from 'react';
 import StopWatch from './components/Stopwatch';
+import StopWatchLabel from './components/StopwatchLabel';
+import uuid from 'react-native-uuid';
 
 
 
+type StopWatchData = {
+  id: string;
+  label: string;
+}
 
-
-
-
-let nextId = 0;
-
+const DATA: StopWatchData[] = [];
 
 
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
-  const result: string[] = [];
-  const [stopWatchLabels, setStopWatchLabels] = useState(result); // The name/text of the stopwatches
+  const [idVal, setIdVal] = useState(0);
+  const [selectedId, setSelectedId] = useState<string>();
+
+  const [stopWatchLabels, setStopWatchLabels] = useState([{id: uuid.v4(), label:'example1'}]); // The name/text of the stopwatches
   const [data, setData] = useState([]);
   // Counter which is an interator for the stopwatches
-  const [counter, setCounter] = useState(0);
-
-
-  //function to delete stopwatch by removing it from data lisst
-  const deleteStopwatch = () => {
-    Alert.alert('You want to delete a stopwatch.');
-  };
-
+  const [stopWatchDelete, setStopWatchDelete] = useState(false);
   const editStopwatch = () => {
-    Alert.alert("You want to edit a stopwatch")
-      ;
+    Alert.alert("You want to edit a stopwatch");
+  }
+  function removeItem(idToDelete: string) {
+    setStopWatchLabels(stopWatchLabels.filter((listValue) => listValue.id !== idToDelete));
+
   }
 
+  
+ 
+
+ 
 
   return (
     <View style={{ justifyContent: 'center', padding: 20 }}>
       <Text style={{ fontSize: 30, textAlign: 'center' }}>My Timers</Text>
       <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {stopWatchLabels.length} timers.</Text>
       <Text style={{ fontSize: 15, textAlign: 'center' }}>Tap on the timer name to edit the time name.</Text>
-
-
       <TextInput style={styles.input} placeholder='Enter timer name here' onSubmitEditing={event => {
-        setStopWatchLabels([...stopWatchLabels, event.nativeEvent.text]);
 
-        // setData([...data, { stopWatchName: mystopWatchName}]);
-
-
-        // Add stopwatch label names to string list
-        // For each component, put into array of objects
-        // Call flatlist
-
-
-
+        setStopWatchLabels([...stopWatchLabels, {id:uuid.v4(),label:event.nativeEvent.text} ]);
+        setIdVal(idVal+1);
 
       }} />
 
-      {/* He we iterate through the string list and create a array of stopwatch timer objects */}
 
+      {/* He we iterate through the string list and create a array of stopwatch timer objects */}
       <FlatList
         data={stopWatchLabels}
-        renderItem={({ item, index }) => (<View style={{alignItems: 'center',
+
+        renderItem={({ item, index}) => (<View style={{
+          alignItems: 'center',
           flex: 1,
-          justifyContent: 'center'}}><StopWatch stopWatchName={item} />
-          <TouchableOpacity style={{ backgroundColor: 'grey', width: 80, height: 30 }} onPress={() => {
-
-
-            setStopWatchLabels([...stopWatchLabels.slice(0, index), ...stopWatchLabels.slice(index + 1)]);
-
-
-          }}>
-            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20, width: 80, height: 30 }}>delete</Text>
+          justifyContent: 'center'
+        }}><StopWatch stopWatchName={item.label} deleted={stopWatchDelete} />
+          <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={() => {
+    removeItem(item.id);
+  }}>
+            <Text style={{ color: 'black', textAlign: 'center', fontSize: 20, width: 80, height: 30 }}>Delete</Text>
           </TouchableOpacity>
-          
-
         </View>
         )}
-        keyExtractor={(item, index) => String(index)}
 
 
+
+        keyExtractor={(item) => item.id}
       />
-      {/* Timer component would go here>*/}
+
+
+
+
+
     </View>
   );
 }
