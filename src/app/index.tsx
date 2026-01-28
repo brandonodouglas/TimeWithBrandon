@@ -17,7 +17,7 @@ export default function HomeScreen() {
       <Text style={{ flex: 4, fontSize: 35, textAlign: 'center' }}>Take back control of your time TODAY!</Text>
       <Text style={{ flex: 5, fontSize: 10, textAlign: 'center' }}>Code by @brandonodouglas 2026</Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => {router.push("/FolderScreen")}}>
+      <TouchableOpacity style={styles.button} onPress={() => {router.push("/IntroScreen")}}>
           <Text style={{color: 'white', fontSize: 40,}}>START</Text>
         </TouchableOpacity>
     </View>
