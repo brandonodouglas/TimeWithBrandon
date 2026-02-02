@@ -51,6 +51,11 @@ export default function TimerScreen() {
           }}>
             <Text style={{ color: 'black', textAlign: 'center', fontSize: 20, width: 80, height: 30 }}>Delete</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={{ backgroundColor: 'red', width: 80, height: 30 }} onPress={() => {
+            Alert.alert("Adding sub timer")
+          }}>
+            <Text style={{ color: 'black', textAlign: 'center', fontSize: 10, width: 80, height: 30 }}>Add sub-timer</Text>
+          </TouchableOpacity>
         </View>
         )}
         keyExtractor={(item) => item.id}
