@@ -11,9 +11,8 @@ export default function HomeScreen() {
   return (
     <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
       <Image style={{ width: 150, height: 150, borderRadius: 70,}} source={require("/Users/brandon/TimeTrackApp/TimeWithBrandon/assets/images/brandonface.png")} />
-      <Text style={{ flex: 1, fontSize: 30, textAlign: 'center' }}>TimeWithBrandon</Text>
       <Text style={{ flex: 2, fontSize: 25, textAlign: 'center' }}>Time is money.</Text>
-      <Text style={{ flex: 3, fontSize: 25, textAlign: 'center' }}>...Why waste it?</Text>
+      <Text style={{ flex: 3, fontSize: 25, textAlign: 'center' }}>...So Why waste it?</Text>
       <Text style={{ flex: 4, fontSize: 35, textAlign: 'center' }}>Take back control of your time TODAY!</Text>
       <Text style={{ flex: 5, fontSize: 10, textAlign: 'center' }}>Code by @brandonodouglas 2026</Text>
 

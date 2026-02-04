@@ -8,26 +8,37 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Checkbox } from '@futurejj/react-native-checkbox';
 
 
+let userChoiceId = 0;
 export default function FolderScreen2() {
-    const [checkedCardio, setCheckedCardio] = useState(false);
+
+  const initArr: string[] = [];
+  const [userFolderChoices, setUserFolderChoices] = useState([''])
+  const [choice, setChoice] = useState('');
+  const [checkedCardio, setCheckedCardio] = useState(false);
 
   const toggleCheckboxCardio = () => {
     setCheckedCardio(!checkedCardio);
+    setUserFolderChoices([...userFolderChoices, 'cardio']);
   };
 
   const [checkedGym, setCheckedGym] = useState(false);
   const toggleCheckboxGym = () => {
     setCheckedGym(!checkedGym);
+    setUserFolderChoices([...userFolderChoices, 'gym']);
   };
 
   const [checkedCooking, setCheckedCooking] = useState(false);
   const toggleCheckboxCooking = () => {
     setCheckedCooking(!checkedCooking);
+    setUserFolderChoices([...userFolderChoices, 'cooking']);
+
   };
 
   const [checkedStudying, setCheckedStudying] = useState(false);
   const toggleCheckboxStudying = () => {
     setCheckedStudying(!checkedStudying);
+    setUserFolderChoices([...userFolderChoices, 'studying']);
+
   };
 
   return (
@@ -90,6 +101,7 @@ export default function FolderScreen2() {
      
      
      </ScrollView>
+     
 
      
 
@@ -99,7 +111,7 @@ export default function FolderScreen2() {
 
 
       <Text style={{ textAlign: 'center' }}>Tap finish to go to the folder screen!</Text>
-      <TouchableOpacity style={styles.button} onPress={() => { router.push("/FolderScreen3") }}>
+      <TouchableOpacity style={styles.button} onPress={() => { router.push({pathname: "/FolderScreen3", params: {userFolderChoices}})}}>
         <Text style={{ color: 'white', fontSize: 40 }}>Finish.</Text>
       </TouchableOpacity>
      

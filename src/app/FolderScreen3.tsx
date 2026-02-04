@@ -1,57 +1,44 @@
-import { View, Text, TouchableOpacity, Alert, FlatList, StatusBar, StyleSheet, TextInput, ScrollView } from 'react-native';
+
+
+import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import StopWatch from './components/Stopwatch';
-import uuid from 'react-native-uuid';
-import { router } from 'expo-router';
-import StopWatchFolder from './components/StopWatchFolder';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { Checkbox } from '@futurejj/react-native-checkbox';
-
-
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 export default function FolderScreen3() {
-    
-
-  return (
-    <View><Text>Here are your folders.</Text></View>
-
-
-
-
-  );
-
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 25,
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#b94b4bff',
-    padding: 10,
-    margin: 20,
-    width: 300,
-    borderCurve: 'circular',
-    borderRadius: 40
-  },
-  input: {
-    fontSize: 15,
-    textAlign: 'center',
-    borderColor: '#b94b4bff',
-    borderRadius: 5,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    margin: 10,
-    padding: 10,
+  const myArray = useLocalSearchParams();
+  const router = useRouter();
+  // Seperate the below, split by commas
+  var str_array = (myArray.userFolderChoices.toString()).split(',')
+  const [data, setData] = useState(str_array);
+  function keyExtractor(str: string, _index: number) {
+    return str;
   }
-});
-
+  function renderItem(info: DragListRenderItemInfo<string>) {
+    const { item, onDragStart, onDragEnd, isActive } = info;
+    return (
+      <TouchableOpacity
+        key={item}
+        onPressIn={onDragStart}
+        onPressOut={onDragEnd}>
+        <Text>{item}</Text>
+      </TouchableOpacity>
+    )
+  }
+  async function onReordered(fromIndex: number, toIndex: number) {
+    const copy = [...data]; // Don't modify react data in-place
+    const removed = copy.splice(fromIndex, 1);
+    copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
+    setData(copy);
+  }
+  return (
+    <View>
+      <DragList
+        data={data}
+        keyExtractor={keyExtractor}
+        onReordered={onReordered}
+        renderItem={renderItem}
+      />
+  <Button title="Go to About" onPress={() => (setData([]), console.log(data), router.back())} />
+    </View>
+  );
+}

@@ -5,6 +5,22 @@ export default function RootLayout() {
   return (
     <React.Fragment> 
       <StatusBar style="auto"/>
-      <Stack />
+      <Stack
+      screenOptions={{
+        title: 'TimeWithBrandon',
+       
+        headerStyle: {
+          backgroundColor: '#b94b4bff',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          color: 'white',
+          fontSize: 30
+        },
+      }}
+      
+      
+      />
     </React.Fragment>
   );}
