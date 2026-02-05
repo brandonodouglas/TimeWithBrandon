@@ -4,6 +4,7 @@ import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
+import StopWatch from './components/Stopwatch';
 export default function FolderScreen3() {
   const myArray = useLocalSearchParams();
   const router = useRouter();
@@ -16,12 +17,18 @@ export default function FolderScreen3() {
   function renderItem(info: DragListRenderItemInfo<string>) {
     const { item, onDragStart, onDragEnd, isActive } = info;
     return (
-      <TouchableOpacity
+      <View>
+        <TouchableOpacity
         key={item}
         onPressIn={onDragStart}
-        onPressOut={onDragEnd}>
-        <Text>{item}</Text>
+        onPressOut={onDragEnd}
+        style={{backgroundColor: 'grey', borderColor: 'black', borderRadius: 10, borderWidth: 2}}
+        
+        >
+        <StopWatch stopWatchName={item} deleted={false} />
       </TouchableOpacity>
+      </View>
+      
     )
   }
   async function onReordered(fromIndex: number, toIndex: number) {
@@ -32,13 +39,14 @@ export default function FolderScreen3() {
   }
   return (
     <View>
+      <Text>Click and drag the stopwatch to change its position</Text>
+
       <DragList
         data={data}
         keyExtractor={keyExtractor}
         onReordered={onReordered}
         renderItem={renderItem}
       />
-  <Button title="Go to About" onPress={() => (setData([]), console.log(data), router.back())} />
     </View>
   );
 }

@@ -19,7 +19,7 @@ export default function RootLayout() {
           fontSize: 30
         },
       }}
-      
+    
       
       />
     </React.Fragment>
