@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, Alert, FlatList, StatusBar, StyleSheet, TextInput, ScrollView } from 'react-native';
 import React, { useState } from 'react';
-import StopWatch from './components/Stopwatch';
+import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import uuid from 'react-native-uuid';
 import { router } from 'expo-router';
-import StopWatchFolder from './components/StopWatchFolder';
+import StopWatchFolder from './components/StopwatchRelatedComponents/StopWatchFolder';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Checkbox } from '@futurejj/react-native-checkbox';
 

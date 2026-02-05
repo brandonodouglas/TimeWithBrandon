@@ -4,14 +4,14 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 
-import StopWatch from './components/Stopwatch';
+import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import uuid from 'react-native-uuid';
 import { router } from 'expo-router';
-import StopWatchFolder from './components/StopWatchFolder';
+import StopWatchFolder from './components/StopwatchRelatedComponents/StopWatchFolder';
 import TaskComponent from './components/TaskComponent';
 import MyBottomSheet from './components/MyBottomSheet';
-import StopWatchLabel from './components/StopwatchLabel';
-import Stopwatch from './components/Stopwatch';
+import StopWatchLabel from './components/StopwatchRelatedComponents/StopwatchLabel';
+import Stopwatch from './components/StopwatchRelatedComponents/Stopwatch';
 import Octicons from "@expo/vector-icons/Octicons";
 import CustomBottomSheet from './components/CustomBottomSheet';
 import { SafeAreaView } from 'react-native-safe-area-context';

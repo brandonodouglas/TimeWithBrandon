@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, Alert, FlatList, StatusBar, StyleSheet, TextInput } from 'react-native';
 import React, { useState } from 'react';
-import StopWatch from './components/Stopwatch';
-import StopWatchLabel from './components/StopwatchLabel';
+import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
+import StopWatchLabel from './components/StopwatchRelatedComponents/StopwatchLabel';
 import uuid from 'react-native-uuid';
 
 import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
-import DraggableStopwatches from './components/DraggableStopwatches';
-import StopWatchDraggable from './components/StopWatchDraggable';
+import DraggableStopwatches from './components/StopwatchRelatedComponents/DraggableStopwatches';
+import StopWatchDraggable from './components/StopwatchRelatedComponents/StopWatchDraggable';
 
 type StopWatchData = {
   id: string;

@@ -5443,6 +5443,11 @@ react-native-bouncy-checkbox@^4.1.2, react-native-bouncy-checkbox@^4.1.4:
     "@freakycoder/react-native-bounceable" "^1.0.3"
     react-native-bouncy-checkbox "^4.1.2"
 
+react-native-collapsible@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.npmjs.org/react-native-collapsible/-/react-native-collapsible-1.6.2.tgz"
+  integrity sha512-MCOBVJWqHNjnDaGkvxX997VONmJeebh6wyJxnHEgg0L1PrlcXU1e/bo6eK+CDVFuMrCafw8Qh4DOv/C4V/+Iew==
+
 react-native-draggable-flatlist@^4.0.3:
   version "4.0.3"
   resolved "https://registry.npmjs.org/react-native-draggable-flatlist/-/react-native-draggable-flatlist-4.0.3.tgz"

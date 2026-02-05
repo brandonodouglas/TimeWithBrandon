@@ -4,7 +4,8 @@ import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
-import StopWatch from './components/Stopwatch';
+import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
+import StopWatchFolderV2 from './components/FolderFeatureComponents/StopWatchFolderV2';
 export default function FolderScreen3() {
   const myArray = useLocalSearchParams();
   const router = useRouter();
@@ -47,6 +48,8 @@ export default function FolderScreen3() {
         onReordered={onReordered}
         renderItem={renderItem}
       />
+      
+      <StopWatchFolderV2 />
     </View>
   );
 }
