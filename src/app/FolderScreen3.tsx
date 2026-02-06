@@ -40,18 +40,26 @@ export default function FolderScreen3() {
     setData(copy);
   }
   return (
-    <View>
-      <Text>Click and drag the stopwatch to change its position</Text>
+    <View style={{justifyContent: 'center',
+      alignItems: 'center'}}>
+      <Text style={{textAlign:"center", fontWeight: 'bold'}}>Capture your acitivies.</Text>
+      <Text style={{textAlign:"center"}}>Here is your go-to spot for folder and timer entry.</Text>
+      <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add timer</Text></TouchableOpacity>
 
-      <DragList
+
+      {/* 
+           <DragList
         data={data}
         keyExtractor={keyExtractor}
         onReordered={onReordered}
         renderItem={renderItem}
       />
 
+      
+      
+      */}
+ 
 
-      <Folder folderName={'Coding'} />
 
 
 
