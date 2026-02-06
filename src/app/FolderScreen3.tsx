@@ -2,7 +2,7 @@
 
 import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
@@ -39,12 +39,16 @@ export default function FolderScreen3() {
     copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
     setData(copy);
   }
+  function handleAddTimer(event: GestureResponderEvent): void {
+    console.log("Adding folder")
+  }
+
   return (
     <View style={{justifyContent: 'center',
       alignItems: 'center'}}>
       <Text style={{textAlign:"center", fontWeight: 'bold'}}>Capture your acitivies.</Text>
       <Text style={{textAlign:"center"}}>Here is your go-to spot for folder and timer entry.</Text>
-      <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add timer</Text></TouchableOpacity>
+      <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}} onPress={handleAddTimer}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add folder</Text></TouchableOpacity>
 
 
       {/* 
