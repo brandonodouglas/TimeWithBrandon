@@ -5,7 +5,8 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
-import StopWatchFolderV2 from './components/FolderFeatureComponents/StopWatchFolderV2';
+import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
+import Folder from './components/MyCustomComponents/Folder';
 export default function FolderScreen3() {
   const myArray = useLocalSearchParams();
   const router = useRouter();
@@ -48,8 +49,12 @@ export default function FolderScreen3() {
         onReordered={onReordered}
         renderItem={renderItem}
       />
-      
-      <StopWatchFolderV2 />
-    </View>
+
+
+      <Folder folderName={'Coding'} />
+
+
+
+</View>
   );
 }
