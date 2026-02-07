@@ -7,7 +7,11 @@ import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
 import Folder from './components/MyCustomComponents/Folder';
+import CustomTextInput from './components/MyCustomComponents/CustomTextInput';
 export default function FolderScreen3() {
+
+ const [showInput, setShowInput] = useState(false)
+
   const myArray = useLocalSearchParams();
   const router = useRouter();
   // Seperate the below, split by commas
@@ -41,32 +45,38 @@ export default function FolderScreen3() {
   }
   function handleAddTimer(event: GestureResponderEvent): void {
     console.log("Adding folder")
+    setShowInput(true);
+  }
+  if (!showInput) {
+    return (
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={{textAlign:"center", fontWeight: 'bold'}}>Capture your acitivies.</Text>
+        <Text style={{textAlign:"center"}}>Here is your go-to spot for folder and timer entry.</Text>
+                <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}} onPress={handleAddTimer}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add folder</Text></TouchableOpacity>
+        
+  
+     
+  
+  
+  
+  
+  </View>
+    );
+
+  } else {
+    return(<View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <Text style={{textAlign:"center", fontWeight: 'bold'}}>What are you working on?</Text>
+      <CustomTextInput showCustomTextInput={showInput} />
+      <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}} onPress={handleAddTimer}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add folder</Text></TouchableOpacity>
+      
+
+   
+
+
+
+
+</View>)
   }
 
-  return (
-    <View style={{justifyContent: 'center',
-      alignItems: 'center'}}>
-      <Text style={{textAlign:"center", fontWeight: 'bold'}}>Capture your acitivies.</Text>
-      <Text style={{textAlign:"center"}}>Here is your go-to spot for folder and timer entry.</Text>
-      <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}} onPress={handleAddTimer}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add folder</Text></TouchableOpacity>
-
-
-      {/* 
-           <DragList
-        data={data}
-        keyExtractor={keyExtractor}
-        onReordered={onReordered}
-        renderItem={renderItem}
-      />
-
-      
-      
-      */}
- 
-
-
-
-
-</View>
-  );
+  
 }
