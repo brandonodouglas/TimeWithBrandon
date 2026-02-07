@@ -2,36 +2,29 @@
 
 import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Button, FlatList, GestureResponderEvent, StyleSheet, Text, TextInput, TextInputSubmitEditingEvent, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, FlatList, GestureResponderEvent, StyleSheet, Text, TextInput, TextInputSubmitEditingEvent, TouchableOpacity, View } from 'react-native';
 import uuid from 'react-native-uuid';
 
 type CustomTextInputProps = {
     showCustomTextInput: boolean;
 }
 
-
-
 export default function CustomTextInput(props: CustomTextInputProps) {
     type ItemProps = { id: string, title: string };
-
     const Item = ({ id, title }: ItemProps) => (
         <View style={styles.item}>
-            <Text style={{ fontSize: 60 }}>📁</Text>
-            <Text style={styles.title}>{title}</Text>
+            <TouchableOpacity style={styles.button} onPress={folderHandler}>
+                <Text style={{ fontSize: 60 }}>📁</Text>
+                <Text style={styles.title}>{title}</Text>
+            </TouchableOpacity>
         </View>
     );
-
     let result: { id: string, title: string }[] = [];
-
-
     const [folderNameList, setFolderNameList] = useState(result)
-
     function addFolder(e: TextInputSubmitEditingEvent): void {
         console.log("Adding new folder")
-
         setFolderNameList([...folderNameList, { id: uuid.v4(), title: e.nativeEvent.text }])
         console.log({ folderNameList })
-
     }
     if (props.showCustomTextInput) {
         return (
@@ -56,7 +49,6 @@ export default function CustomTextInput(props: CustomTextInputProps) {
     } else {
         return (null)
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -77,4 +69,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32,
     },
+    button: {
+        alignItems: 'center',
+        padding: 10,
+    },
 });
+
+function folderHandler(event: GestureResponderEvent): void {
+    Alert.alert("Folder has been clicked")
+}
