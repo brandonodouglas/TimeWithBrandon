@@ -2,23 +2,35 @@
 
 import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, Button, FlatList, GestureResponderEvent, StyleSheet, Text, TextInput, TextInputSubmitEditingEvent, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, FlatList, GestureResponderEvent, SectionList, StatusBar, StyleSheet, Text, TextInput, TextInputSubmitEditingEvent, TouchableOpacity, View } from 'react-native';
 import uuid from 'react-native-uuid';
 
 type CustomTextInputProps = {
     showCustomTextInput: boolean;
 }
 
+
 export default function CustomTextInput(props: CustomTextInputProps) {
-    type ItemProps = { id: string, title: string };
-    const Item = ({ id, title }: ItemProps) => (
-        <View style={styles.item}>
-            <TouchableOpacity style={styles.button} onPress={folderHandler}>
-                <Text style={{ fontSize: 60 }}>📁</Text>
-                <Text style={styles.title}>{title}</Text>
-            </TouchableOpacity>
-        </View>
-    );
+
+const DATA = [
+    {
+        title: 'Main dishes',
+        data: ['Pizza', 'Burger', 'Risotto'],
+    },
+    {
+        title: 'Sides',
+        data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+    },
+    {
+        title: 'Drinks',
+        data: ['Water', 'Coke', 'Beer'],
+    },
+    {
+        title: 'Desserts',
+        data: ['Cheese Cake', 'Ice Cream'],
+    },
+];
+    
     let result: { id: string, title: string }[] = [];
     const [folderNameList, setFolderNameList] = useState(result)
     function addFolder(e: TextInputSubmitEditingEvent): void {
@@ -32,17 +44,18 @@ export default function CustomTextInput(props: CustomTextInputProps) {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <TextInput
-                    style={styles.input}
-                    onSubmitEditing={addFolder}
-                    placeholder="Enter folder name"
-                />
-                <FlatList
-                    data={folderNameList}
-                    renderItem={({ item }) => <Item id={item.id} title={item.title} />}
-                    keyExtractor={(item: {
-                        title: string; id: string;
-                    }) => item.id}
+                
+                <SectionList
+                    sections={DATA}
+                    keyExtractor={(item, index) => item + index}
+                    renderItem={({ item }) => (
+                        <View style={styles.item}>
+                            <Text style={styles.title}>{item} ⏱️</Text>
+                        </View>
+                    )}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <Text style={styles.header}>📁 {title}</Text>
+                    )}
                 />
             </View>
         );
@@ -52,27 +65,29 @@ export default function CustomTextInput(props: CustomTextInputProps) {
 }
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-    },
-    item: {
-        padding: 0,
-        marginVertical: 8,
+    container: {
+        flex: 1,
+        paddingTop: StatusBar.currentHeight,
         marginHorizontal: 16,
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    title: {
+      },
+      item: {
+        backgroundColor: '#b94b4bff',
+        padding: 20,
+        marginVertical: 8,
+      },
+      header: {
         fontSize: 32,
-    },
-    button: {
-        alignItems: 'center',
-        padding: 10,
-    },
+        backgroundColor: '#b94b4bff',
+        fontWeight: 'light',
+        color: 'white',
+        textAlign: 'left',
+      },
+      title: {
+        fontSize: 24,
+        color: 'white',
+        textAlign: 'center',
+
+    }
 });
 
 function folderHandler(event: GestureResponderEvent): void {
