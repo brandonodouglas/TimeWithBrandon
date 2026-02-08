@@ -3,12 +3,60 @@
 import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Button, FlatList, GestureResponderEvent, SectionList, StatusBar, StyleSheet, Text, TextInput, TextInputSubmitEditingEvent, TouchableOpacity, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import uuid from 'react-native-uuid';
 
 type Text = {
     myText: string,
 }
 
+// The list of data that will be rendered and dragagbel
+const DATA = [
+    {
+        id: 0,
+        text: 'item 1'
+    },
+    {
+        id: 1,
+        text: 'item 2'
+    },
+    {
+        id: 2,
+        text: 'item 3'
+    },
+    {
+        id: 3,
+        text: 'item 4'
+    },
+    {
+        id: 4,
+        text: 'item 5'
+    },
+    {
+        id: 5,
+        text: 'item 6'
+    },
+    {
+        id: 6,
+        text: 'item 7'
+    },
+    {
+        id: 7,
+        text: 'item 8'
+    },
+    {
+        id: 8,
+        text: 'item 9'
+    },
+    {
+        id: 9,
+        text: 'item 10'
+    },
+    {
+        id: 10,
+        text: 'item 11'
+    },
+]
 
 export default function CustomTextInput(props: Text) {
 
@@ -16,7 +64,9 @@ export default function CustomTextInput(props: Text) {
     return(
 
         <View>
-        <Text style={styles.title}>{props.myText}</Text>
+        <ScrollView>
+            
+        </ScrollView>
         </View>
     )
    
