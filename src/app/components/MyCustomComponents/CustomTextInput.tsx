@@ -18,7 +18,7 @@ export default function CustomTextInput(props: CustomTextInputProps) {
     return(
 
         <View>
-        <DraggableComponent myText={'Item 1'} />
+        <DraggableComponent />
         
         </View>
     )

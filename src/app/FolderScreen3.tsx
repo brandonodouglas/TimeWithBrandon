@@ -8,75 +8,37 @@ import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
 import Folder from './components/MyCustomComponents/Folder';
 import CustomTextInput from './components/MyCustomComponents/CustomTextInput';
+import DraggableComponent from './components/MyDraggableComponents/DraggableComponent';
 export default function FolderScreen3() {
 
- const [showInput, setShowInput] = useState(false)
+  const [showInput, setShowInput] = useState(false)
 
   const myArray = useLocalSearchParams();
   const router = useRouter();
-  // Seperate the below, split by commas
-  var str_array = (myArray.userFolderChoices.toString()).split(',')
-  const [data, setData] = useState(str_array);
-  function keyExtractor(str: string, _index: number) {
-    return str;
-  }
-  function renderItem(info: DragListRenderItemInfo<string>) {
-    const { item, onDragStart, onDragEnd, isActive } = info;
+ 
+ 
+ 
+ 
+  
     return (
-      <View>
-        <TouchableOpacity
-        key={item}
-        onPressIn={onDragStart}
-        onPressOut={onDragEnd}
-        style={{backgroundColor: 'grey', borderColor: 'black', borderRadius: 10, borderWidth: 2}}
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ textAlign: "center", fontWeight: 'bold' }}>Capture your acitivies.</Text>
+        <Text style={{ textAlign: "center" }}>Here is your go-to spot for folder and timer entry.</Text>
+        <DraggableComponent />
         
-        >
-        <StopWatch stopWatchName={item} deleted={false} />
-      </TouchableOpacity>
+
+
+
+
+
+
+
+
       </View>
-      
-    )
-  }
-  async function onReordered(fromIndex: number, toIndex: number) {
-    const copy = [...data]; // Don't modify react data in-place
-    const removed = copy.splice(fromIndex, 1);
-    copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
-    setData(copy);
-  }
-  function handleAddTimer(event: GestureResponderEvent): void {
-    console.log("Adding folder")
-    setShowInput(true);
-  }
-  if (!showInput) {
-    return (
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{textAlign:"center", fontWeight: 'bold'}}>Capture your acitivies.</Text>
-        <Text style={{textAlign:"center"}}>Here is your go-to spot for folder and timer entry.</Text>
-                <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}} onPress={handleAddTimer}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add folder</Text></TouchableOpacity>
-        
-  
-     
-  
-  
-  
-  
-  </View>
     );
 
-  } else {
-    return(<View style={{justifyContent: 'center', alignItems: 'center'}}>
-      <Text style={{textAlign:"center", fontWeight: 'bold'}}>What are you working on?</Text>
-      <CustomTextInput showCustomTextInput={showInput} />
-      <TouchableOpacity style={{borderRadius: 20, backgroundColor: '#b94b4bff', width: 100, height:20}} onPress={handleAddTimer}><Text style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>+  Add folder</Text></TouchableOpacity>
-      
+  
 
-   
-
-
-
-
-</View>)
   }
 
-  
-}
+
