@@ -9,6 +9,7 @@ import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
 import Folder from './components/MyCustomComponents/Folder';
 import CustomTextInput from './components/MyCustomComponents/CustomTextInput';
 import DraggableComponent from './components/MyDraggableComponents/DraggableComponent';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 export default function FolderScreen3() {
 
   const [showInput, setShowInput] = useState(false)
@@ -21,10 +22,15 @@ export default function FolderScreen3() {
  
   
     return (
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <GestureHandlerRootView>
+
         <Text style={{ textAlign: "center", fontWeight: 'bold' }}>Capture your acitivies.</Text>
         <Text style={{ textAlign: "center" }}>Here is your go-to spot for folder and timer entry.</Text>
+
+
         <DraggableComponent />
+
+
         
 
 
@@ -33,8 +39,8 @@ export default function FolderScreen3() {
 
 
 
+</GestureHandlerRootView>
 
-      </View>
     );
 
   

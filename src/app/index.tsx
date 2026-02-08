@@ -9,7 +9,6 @@ export default function HomeScreen() {
 
 
   return (
-    <GestureHandlerRootView style={styles.container}>
     <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
       <Image style={{ width: 150, height: 150, borderRadius: 70,}} source={require("/Users/brandon/TimeTrackApp/TimeWithBrandon/assets/images/brandonface.png")} />
       <Text style={{ flex: 2, fontSize: 25, textAlign: 'center' }}>Time is money.</Text>
@@ -21,7 +20,6 @@ export default function HomeScreen() {
           <Text style={{color: 'white', fontSize: 40,}}>START</Text>
         </TouchableOpacity>
     </View>
-    </GestureHandlerRootView>
   );
 }
 

@@ -1,53 +1,43 @@
-import React, {useRef} from 'react';
-import {Animated, View, StyleSheet, PanResponder, Text} from 'react-native';
-import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
 
-const App = () => {
-  const pan = useRef(new Animated.ValueXY()).current;
+const SOUND_OF_SILENCE = ['Cooking', 'Reading', 'Gym Workout', 'Coding', 'Grocery Shopping'];
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}]),
-      onPanResponderRelease: () => {
-        pan.extractOffset();
-      },
-    }),
-  ).current;
+export default function DraggableLyrics() {
+  const [data, setData] = useState(SOUND_OF_SILENCE);
+
+  function keyExtractor(str: string, _index: number) {
+    return str;
+  }
+
+  function renderItem(info: DragListRenderItemInfo<string>) {
+    const {item, onDragStart, onDragEnd, isActive} = info;
+
+    return (
+      <TouchableOpacity
+        key={item}
+        onPressIn={onDragStart}
+        onPressOut={onDragEnd}>
+        <Text style={{fontSize: 40}}>📁 {item}</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  async function onReordered(fromIndex: number, toIndex: number) {
+    const copy = [...data]; // Don't modify react data in-place
+    const removed = copy.splice(fromIndex, 1);
+
+    copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
+    setData(copy);
+  }
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.titleText}>Drag this box!</Text>
-        <Animated.View
-          style={{
-            transform: [{translateX: 0}, {translateY: pan.y}],
-          }}
-          {...panResponder.panHandlers}>
-          <View style={styles.box} />
-        </Animated.View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      <DragList
+        data={data}
+        keyExtractor={keyExtractor}
+        onReordered={onReordered}
+        renderItem={renderItem}
+      />
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titleText: {
-    fontSize: 14,
-    lineHeight: 24,
-    fontWeight: 'bold',
-  },
-  box: {
-    height: 150,
-    width: 150,
-    backgroundColor: 'blue',
-    borderRadius: 5,
-  },
-});
-
-export default App;
+}
