@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
 
 const SOUND_OF_SILENCE = ['Cooking', 'Reading', 'Gym Workout', 'Coding', 'Grocery Shopping'];
@@ -14,12 +14,17 @@ export default function DraggableLyrics() {
   function renderItem(info: DragListRenderItemInfo<string>) {
     const {item, onDragStart, onDragEnd, isActive} = info;
 
+    function handleFolderPress(event: GestureResponderEvent): void {
+      Alert.alert("Hello")
+    }
+
     return (
       <TouchableOpacity
         key={item}
+        onPress={handleFolderPress}
         onPressIn={onDragStart}
         onPressOut={onDragEnd}>
-        <Text style={{fontSize: 40}}>📁 {item}</Text>
+        <Text style={{fontSize: 40, backgroundColor: '#b94b4bff'}}>📁 {item}</Text>
       </TouchableOpacity>
     );
   }
@@ -27,7 +32,6 @@ export default function DraggableLyrics() {
   async function onReordered(fromIndex: number, toIndex: number) {
     const copy = [...data]; // Don't modify react data in-place
     const removed = copy.splice(fromIndex, 1);
-
     copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
     setData(copy);
   }
