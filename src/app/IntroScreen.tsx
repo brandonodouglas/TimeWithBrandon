@@ -17,7 +17,7 @@ export default function IntroScreen() {
     <Text style={{textAlign: 'center', fontSize: 27, padding:10}}>Ready to reclaim your time? Tap the button below! ✨</Text>
 
     <TouchableOpacity style={styles.button} onPress={() => {router.push("/FolderScreen")}}>
-          <Text style={{color: 'white', fontSize: 20, textAlign: 'center'}}>Begin Tutorial</Text>
+          <Text style={{color: 'white', fontSize: 20, textAlign: 'center'}}>Begin</Text>
         </TouchableOpacity>
 
     </View>

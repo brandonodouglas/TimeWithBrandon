@@ -1,72 +1,54 @@
-import { View, Text, TouchableOpacity, Alert, FlatList, StatusBar, StyleSheet, TextInput } from 'react-native';
+
+
+import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
+import { Alert, Button, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
-import uuid from 'react-native-uuid';
-import { router } from 'expo-router';
-import StopWatchFolder from './components/StopwatchRelatedComponents/StopWatchFolder';
-
-
+import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
+import  FolderComponent  from './components/folder-feature-components-finished/FolderComponent'
+import CustomTextInput from './components/MyCustomComponents/CustomTextInput';
+import DraggableComponent from './components/MyDraggableComponents/DraggableComponent';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 export default function FolderScreen() {
 
+  const [showInput, setShowInput] = useState(false)
+
+  const myArray = useLocalSearchParams();
+  const router = useRouter();
+
+
+
+
+
+
+ 
+
   return (
-    <View style={{ justifyContent: 'center', padding: 20 }}>
-      <Text style={{ textAlign: 'center', fontSize: 40 }}>✨ Tutorial ✨</Text>
-      <View
-        style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: StyleSheet.hairlineWidth,
-        }}
-      />
-      <Text style={{ textAlign: 'center', fontSize: 90 }}>🗂️</Text>
-      <Text style={{ textAlign: 'center' }}>This brown folder is called the root folder. It represents a single day.</Text>
-      <Text style={{ textAlign: 'center', fontSize: 90 }}>📁</Text>
-      <Text style={{ textAlign: 'center' }}>This is called a header activity folder, for example cooking, gym workout, morning routine. They contain subfolders of stopwatches. </Text>
-      <Text style={{ textAlign: 'center', fontSize: 90 }}>⏱️📁</Text>
-      <Text style={{ textAlign: 'center' }}>This is called a stopwatch subfolder, denoted by the stopwatch and folder emojis.</Text>
-      <Text></Text>
-      <Text style={{ textAlign: 'center' }}>Tap continue to continue to the setup screen</Text>
-      <TouchableOpacity style={styles.button} onPress={() => { router.push("/FolderScreen2") }}>
-        <Text style={{ color: 'white', fontSize: 40 }}>CONTINUE</Text>
-      </TouchableOpacity>
-    </View>
+    <GestureHandlerRootView style={{flex: 1}}>
+        <Text style={{textAlign: 'center', fontWeight: 'bold' }}>Capture your acitivies.</Text>
+        <Text style={{ textAlign: 'center',}}>Here is your go-to spot for folder and timer entry.</Text>
+        <Text style={{ textAlign: 'center',}}>Some folders have been set up for you, add more below!</Text>
+
+        {/* <DraggableComponent /> */}
+        <FolderComponent list={['one', 'two', 'three', 'four', 'five', 'six','seven','eight']}  />
+       
 
 
+
+
+
+
+
+
+
+
+    </GestureHandlerRootView>
 
   );
 
+
+
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 25,
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#b94b4bff',
-    padding: 10,
-    margin: 20,
-    width: 300,
-    borderCurve: 'circular',
-    borderRadius: 40
-  },
-  input: {
-    fontSize: 15,
-    textAlign: 'center',
-    borderColor: '#b94b4bff',
-    borderRadius: 5,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    margin: 10,
-    padding: 10,
-  }
-});
+
 
