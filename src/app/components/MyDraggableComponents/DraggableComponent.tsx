@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Alert, GestureResponderEvent, StyleSheet, Text, TextInput, TextInputSubmitEditingEvent, TouchableOpacity, View } from 'react-native';
+import { Alert, GestureResponderEvent, ScrollView, StyleSheet, Text, TextInput, TextInputSubmitEditingEvent, TouchableOpacity, View } from 'react-native';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 
-const SOUND_OF_SILENCE = ['Cooking', 'Reading', 'Gym Workout', 'Coding', 'Grocery Shopping'];
+const SOUND_OF_SILENCE = ['Cooking', 'Reading', 'Gym Workout', 'Coding', 'Grocery Shopping','Cooking', 'Reading', 'Gym Workout', 'Coding', 'Grocery Shopping','Cooking', 'Reading', 'Gym Workout', 'Coding', 'Grocery Shopping'];
 
 export default function DraggableLyrics() {
   const [data, setData] = useState(SOUND_OF_SILENCE);
@@ -49,27 +49,33 @@ export default function DraggableLyrics() {
 
   function folderSubmitHandler(e: TextInputSubmitEditingEvent): void {
     setData([...data, e.nativeEvent.text])
-    console.log(data)
+  
 
   }
 
   return (
-    <View>
+   
+
+    
+    <View style={{backgroundColor: 'pink'}}>
 <DragList
       data={data}
       keyExtractor={keyExtractor}
       onReordered={onReordered}
       renderItem={renderItem}
     />
+      
+       
      <TextInput
             style={styles.input}
             onSubmitEditing={folderSubmitHandler}
             placeholder='Enter foldername'
         
           />
+      </View>
 
 
-    </View>
+ 
     
 
   );
