@@ -8,7 +8,7 @@ import { Alert, Button, TextInput, GestureResponderEvent, StyleSheet, Text, Touc
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
-import  FolderComponent  from './components/folder-feature-components-finished/FolderComponent'
+import FolderComponent from './components/folder-feature-components-finished/FolderComponent'
 import CustomTextInput from './components/MyCustomComponents/CustomTextInput';
 import DraggableComponent from './components/MyDraggableComponents/DraggableComponent';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -35,31 +35,42 @@ export default function FolderScreen() {
   }
 
   return (
-    <View style={{justifyContent: 'center', padding: 20}}>
-        <Text style={{textAlign: 'center', fontWeight: 'bold' }}>Capture your folders.</Text>
-        <Text style={{ textAlign: 'center',}}>Here is your go-to spot for folder entry</Text>
-        <TextInput style={styles.input} placeholder='Enter folder name here' onSubmitEditing={event => {
+    <View style={{ justifyContent: 'center', padding: 20 }}>
+      <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Capture your folders.</Text>
+      <Text style={{ textAlign: 'center', }}>👉 Here is your go-to spot for folder entry</Text>
+      <Text style={{ textAlign: 'center', }}>👉 Tap on a folder to edit the name of the folder</Text>
+      <Text style={{ textAlign: 'center', }}>👉 Tap the ❌ button to delete a folder</Text>
+      <Text style={{ textAlign: 'center', }}>👉 Tap and drag the folder to change the order of said folder (feature W.I.P)</Text>
+
+
+
+      <TextInput style={styles.input} placeholder='Enter folder name here' onSubmitEditing={event => {
         setStopWatchLabels([...stopWatchLabels, { id: uuid.v4(), label: event.nativeEvent.text }]);
         setIdVal(idVal + 1);
       }} />
 
-<FlatList
+      <FlatList
         data={stopWatchLabels}
         renderItem={({ item, index }) => (<View style={{
           alignItems: 'center',
           flex: 1,
           justifyContent: 'center'
-        }}><Text style={{fontSize: 40, textAlign: 'center', color: 'white', backgroundColor: '#b94b4bff', width: '100%'}}>📁 {item.label}</Text>
-          
+        }}><Text style={{ fontSize: 40, textAlign: 'center', color: 'white', backgroundColor: '#b94b4bff', width: '100%' }}>📁 {item.label}<TouchableOpacity style={{width: 80, height: 30 }} onPress={() => {
+          removeItem(item.id);
+        }}>
+          <Text style={{ color: 'black', textAlign: 'center', fontSize: 30, width: 80, height: 30 }}>❌</Text>
+        </TouchableOpacity></Text>
+        
+
         </View>
         )}
         keyExtractor={(item) => item.id}
       />
 
 
-        {/* <DraggableComponent /> */}
-        {/* <FolderComponent list={['one', 'two', 'three', 'four', 'five', 'six','seven','eight']}  /> */}
-       
+      {/* <DraggableComponent /> */}
+      {/* <FolderComponent list={['one', 'two', 'three', 'four', 'five', 'six','seven','eight']}  /> */}
+
 
 
 
@@ -101,5 +112,5 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
   }
-}); 
+});
 
