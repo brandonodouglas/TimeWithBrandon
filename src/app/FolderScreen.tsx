@@ -4,7 +4,7 @@ import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import uuid from 'react-native-uuid';
 
-import { Alert, Button, TextInput, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, StatusBar, FlatList } from 'react-native';
+import { Alert, Button, TextInput, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, StatusBar, FlatList, TextInputSubmitEditingEvent } from 'react-native';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
@@ -12,18 +12,20 @@ import FolderComponent from './components/folder-feature-components-finished/Fol
 import CustomTextInput from './components/MyCustomComponents/CustomTextInput';
 import DraggableComponent from './components/MyDraggableComponents/DraggableComponent';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Folder from './Folder';
 export default function FolderScreen() {
 
-  const [showInput, setShowInput] = useState(false)
 
   const myArray = useLocalSearchParams();
   const router = useRouter();
   const [idVal, setIdVal] = useState(0);
-  const [selectedId, setSelectedId] = useState<string>();
-  const [stopWatchLabels, setStopWatchLabels] = useState([{ id: uuid.v4(), label: 'example1' }]); // The name/text of the stopwatches
-  const [data, setData] = useState([]);
-  // Counter which is an interator for the stopwatches
-  const [stopWatchDelete, setStopWatchDelete] = useState(false);
+  const [editFolderName, setEditFolderName] = useState(false);
+  const [folderDelete, setFolderDelete] = useState(false);
+
+
+
+  const [stopWatchLabels, setStopWatchLabels] = useState([{ id: uuid.v4(), label: 'example1'}]); // The name/text of the stopwatches
+  // Handles the editing of the text for folders
 
 
 
@@ -31,59 +33,65 @@ export default function FolderScreen() {
 
 
   function removeItem(idToDelete: string) {
-    setStopWatchLabels(stopWatchLabels.filter((listValue) => listValue.id !== idToDelete));
+    setStopWatchLabels(stopWatchLabels.filter((listValue) => listValue.id !== idToDelete))
   }
 
-  return (
-    <View style={{ justifyContent: 'center', padding: 20 }}>
+  function handleEdit(itemLabel: string, itemId: string) {
+    Alert.alert("Handling: " + itemLabel + itemId)
+    // Loop over the array
+    // if itemId == arrayItem.id
+    // item label = new item label from text input
+    // setArray/stopwatch labels
+    // done and item should be updated
+    console.log("Edit folder name is currently: " + editFolderName)
+
+  }
+  function handleMe(event: GestureResponderEvent): void {
+    console.log('handling....')
+    setEditFolderName(true)
+
+  }
+
+   
+    return (<View style={{ justifyContent: 'center', padding: 20 }}>
       <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Capture your folders.</Text>
       <Text style={{ textAlign: 'center', }}>👉 Here is your go-to spot for folder entry</Text>
       <Text style={{ textAlign: 'center', }}>👉 Tap on a folder to edit the name of the folder</Text>
       <Text style={{ textAlign: 'center', }}>👉 Tap the ❌ button to delete a folder</Text>
       <Text style={{ textAlign: 'center', }}>👉 Tap and drag the folder to change the order of said folder (feature W.I.P)</Text>
-
-
-
       <TextInput style={styles.input} placeholder='Enter folder name here' onSubmitEditing={event => {
         setStopWatchLabels([...stopWatchLabels, { id: uuid.v4(), label: event.nativeEvent.text }]);
         setIdVal(idVal + 1);
       }} />
-
       <FlatList
         data={stopWatchLabels}
         renderItem={({ item, index }) => (<View style={{
           alignItems: 'center',
           flex: 1,
           justifyContent: 'center'
-        }}><Text style={{ fontSize: 40, textAlign: 'center', color: 'white', backgroundColor: '#b94b4bff', width: '100%' }}>📁 {item.label}<TouchableOpacity style={{width: 80, height: 30 }} onPress={() => {
+        }}>
+          <Folder folderName={item.label} deleted={folderDelete} />
+          
+        <TouchableOpacity style={{ width: 80, height: 30 }} onPress={() => {
           removeItem(item.id);
         }}>
-          <Text style={{ color: 'black', textAlign: 'center', fontSize: 30, width: 80, height: 30 }}>❌</Text>
-        </TouchableOpacity></Text>
-        
-
+              <Text style={{ color: 'black', textAlign: 'center', fontSize: 30, width: 80, height: 30 }}>❌</Text>
+            </TouchableOpacity>
         </View>
         )}
         keyExtractor={(item) => item.id}
       />
-
-
       {/* <DraggableComponent /> */}
       {/* <FolderComponent list={['one', 'two', 'three', 'four', 'five', 'six','seven','eight']}  /> */}
-
-
-
-
-
-
-
-
-
-
-
     </View>
+    )
 
-  );
+  
+
+
+
+
+
 
 
 
