@@ -1,31 +1,23 @@
 
 
 import { useLocalSearchParams, Link, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import uuid from 'react-native-uuid';
 
 import { Alert, Button, TextInput, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, StatusBar, FlatList, TextInputSubmitEditingEvent } from 'react-native';
-import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
-import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
-import BrandonAccordion from './components/MyCustomComponents/brandonAccordion';
-import FolderComponent from './components/folder-feature-components-finished/FolderComponent'
-import CustomTextInput from './components/MyCustomComponents/CustomTextInput';
-import DraggableComponent from './components/MyDraggableComponents/DraggableComponent';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Folder from './Folder';
+import FolderLabel from './FolderLabel';
+import StopWatchLabel from './components/StopwatchRelatedComponents/StopwatchLabel';
+
+
+
+
+
 export default function FolderScreen() {
+  const [editing, setEditing] = useState(false);
+  const [folderName, setFolderName] = useState('example1')
+  const [stopWatchLabels, setStopWatchLabels] = useState([{ id: uuid.v4(), label: folderName }]) // The name/text of the stopwatches
 
-
-  const myArray = useLocalSearchParams();
-  const router = useRouter();
-  const [idVal, setIdVal] = useState(0);
-  const [editFolderName, setEditFolderName] = useState(false);
-  const [folderDelete, setFolderDelete] = useState(false);
-
-
-
-  const [stopWatchLabels, setStopWatchLabels] = useState([{ id: uuid.v4(), label: 'example1'}]); // The name/text of the stopwatches
-  // Handles the editing of the text for folders
 
 
 
@@ -36,57 +28,112 @@ export default function FolderScreen() {
     setStopWatchLabels(stopWatchLabels.filter((listValue) => listValue.id !== idToDelete))
   }
 
-  function handleEdit(itemLabel: string, itemId: string) {
-    Alert.alert("Handling: " + itemLabel + itemId)
-    // Loop over the array
-    // if itemId == arrayItem.id
-    // item label = new item label from text input
-    // setArray/stopwatch labels
-    // done and item should be updated
-    console.log("Edit folder name is currently: " + editFolderName)
+  function newScreen(screenName: string, itemId: string) {
+    console.log("Folder with name: " + screenName + " has been clicked on. " + "with id: " + itemId)
 
-  }
-  function handleMe(event: GestureResponderEvent): void {
-    console.log('handling....')
-    setEditFolderName(true)
 
   }
 
-   
+  function editFolderName(screenName: string, itemId: string) {
+    console.log("User wishes to edit Folder with name: " + screenName + " has been clicked on. " + "with id: " + itemId)
+
+
+  }
+
+  if (!editing) {
     return (<View style={{ justifyContent: 'center', padding: 20 }}>
-      <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Capture your folders.</Text>
-      <Text style={{ textAlign: 'center', }}>👉 Here is your go-to spot for folder entry</Text>
-      <Text style={{ textAlign: 'center', }}>👉 Tap on a folder to edit the name of the folder</Text>
-      <Text style={{ textAlign: 'center', }}>👉 Tap the ❌ button to delete a folder</Text>
-      <Text style={{ textAlign: 'center', }}>👉 Tap and drag the folder to change the order of said folder (feature W.I.P)</Text>
+      <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Capture your folders here.</Text>
       <TextInput style={styles.input} placeholder='Enter folder name here' onSubmitEditing={event => {
+        console.log(event.nativeEvent.text)
         setStopWatchLabels([...stopWatchLabels, { id: uuid.v4(), label: event.nativeEvent.text }]);
-        setIdVal(idVal + 1);
       }} />
+  
+  
       <FlatList
         data={stopWatchLabels}
-        renderItem={({ item, index }) => (<View style={{
+  
+        renderItem={({ item }) => (<View style={{
           alignItems: 'center',
           flex: 1,
           justifyContent: 'center'
         }}>
-          <Folder folderName={item.label} deleted={folderDelete} />
           
-        <TouchableOpacity style={{ width: 80, height: 30 }} onPress={() => {
-          removeItem(item.id);
-        }}>
-              <Text style={{ color: 'black', textAlign: 'center', fontSize: 30, width: 80, height: 30 }}>❌</Text>
-            </TouchableOpacity>
+          <Text style={{ color: 'black', textAlign: 'center', fontSize: 0, fontWeight: "800" }}>{"📁" + item.label}</Text>
+          <Button onPress={() => {setEditing(true)}} title="Edit folder name"></Button>
+          <Button onPress={() => newScreen(item.label, item.id)} title="new screen"></Button>
+          <Button onPress={() => removeItem(item.id)} title="Delete"></Button>
+  
+  
+  
+  
         </View>
+  
         )}
+  
+  
         keyExtractor={(item) => item.id}
+  
       />
-      {/* <DraggableComponent /> */}
-      {/* <FolderComponent list={['one', 'two', 'three', 'four', 'five', 'six','seven','eight']}  /> */}
+  
     </View>
+  
+  
     )
 
+  } else {
+    return (<View style={{ justifyContent: 'center', padding: 20 }}>
+      <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Capture your folders here.</Text>
+      <TextInput style={styles.input} placeholder='Enter folder name here' onSubmitEditing={event => {
+        console.log(event.nativeEvent.text)
+        setStopWatchLabels([...stopWatchLabels, { id: uuid.v4(), label: event.nativeEvent.text }]);
+      }} />
+      <FlatList
+        data={stopWatchLabels}
+        renderItem={({ item }) => (<View style={{
+          alignItems: 'center',
+          flex: 1,
+          justifyContent: 'center'
+        }}>
+          
+          <TextInput style={styles.input} placeholder='Enter new folder name' onSubmitEditing={event => {setEditing(false)
+         for (let i = 0; i < stopWatchLabels.length; i++) {
+          console.log('BEFORE: Label: ' + stopWatchLabels[i].label + " and id: " + stopWatchLabels[i].id)
+
+
+        }
+        
+         setStopWatchLabels(stopWatchLabels.map(element => ({id: element.id, label:event.nativeEvent.text})))
+
+          for (let i = 0; i < stopWatchLabels.length; i++) {
+            console.log('AFTER: Label: ' + stopWatchLabels[i].label + " and id: " + stopWatchLabels[i].id)
+
+
+          }
+      }} />
+          <Button onPress={() => editFolderName(item.label, item.id)} title="Edit folder name"></Button>
+          <Button onPress={() => newScreen(item.label, item.id)} title="new screen"></Button>
+          <Button onPress={() => removeItem(item.id)} title="Delete"></Button>
   
+  
+  
+  
+        </View>
+  
+        )}
+  
+  
+        keyExtractor={(item) => item.id}
+  
+      />
+  
+    </View>
+  
+  
+    )
+  }
+  
+
+
 
 
 

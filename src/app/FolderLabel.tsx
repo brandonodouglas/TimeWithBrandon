@@ -10,33 +10,37 @@ type FolderLabelProps = {
 export default function FolderLabel(props: FolderLabelProps) {
     const [editing, setEditing] = useState(false);
     const [myLabel, setMyLabel] = useState(props.initialLabel);
+
+    
+
     // Edit stopwatch label
     function startEdit(event: GestureResponderEvent): void {
         setEditing(true);
     }
     function submitHandler(e: TextInputSubmitEditingEvent): void {
         setMyLabel("📁" + e.nativeEvent.text);
+        // Update props to the new submit handler result
+
         setEditing(false);
     }
     if (!editing) {
         return (
             <View>
                 <TouchableOpacity style={{}} onPress={startEdit}>
-                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 , fontWeight: "800"}}>{myLabel}</Text>
+                    <Text style={{ color: 'black', textAlign: 'center', fontSize: 20, fontWeight: "800" }}>{myLabel}</Text>
                 </TouchableOpacity>
             </View>
         )
     } else {
-        return(<TextInput style={styles.input} onSubmitEditing={submitHandler}></TextInput>);
+        return (<TextInput style={styles.input} onSubmitEditing={submitHandler}></TextInput>);
 
     }
 }
- const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
     },
-  });
-  
+});
