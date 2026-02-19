@@ -3,6 +3,8 @@
 import { useLocalSearchParams, Link, useRouter } from 'expo-router';
 import React, { useState, useEffect } from 'react';
 import uuid from 'react-native-uuid';
+import { router } from "expo-router";
+
 
 import { Alert, Button, TextInput, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, StatusBar, FlatList, TextInputSubmitEditingEvent } from 'react-native';
 import Folder from './Folder';
@@ -30,6 +32,8 @@ export default function FolderScreen() {
 
   function newScreen(screenName: string, itemId: string) {
     console.log("Folder with name: " + screenName + " has been clicked on. " + "with id: " + itemId)
+    router.push({pathname: "/TimerScreen", params: {screenName}});
+
 
 
   }

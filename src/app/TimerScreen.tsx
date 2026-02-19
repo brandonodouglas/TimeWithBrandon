@@ -7,6 +7,7 @@ import uuid from 'react-native-uuid';
 import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
 import DraggableStopwatches from './components/StopwatchRelatedComponents/DraggableStopwatches';
 import StopWatchDraggable from './components/StopwatchRelatedComponents/StopWatchDraggable';
+import { useLocalSearchParams } from 'expo-router';
 
 type StopWatchData = {
   id: string;
@@ -15,6 +16,7 @@ type StopWatchData = {
 const DATA: StopWatchData[] = [];
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
+  const { screenName } = useLocalSearchParams();
   const [idVal, setIdVal] = useState(0);
   const [selectedId, setSelectedId] = useState<string>();
   const [stopWatchLabels, setStopWatchLabels] = useState([{ id: uuid.v4(), label: 'example1' }]); // The name/text of the stopwatches
@@ -31,7 +33,7 @@ export default function TimerScreen() {
     <View style={{ justifyContent: 'center', padding: 20 }}>
               <Text style={{textAlign: 'center', fontSize: 90}}>⏰</Text>        
 
-      <Text style={{ fontSize: 30, textAlign: 'center' }}>My Timers</Text>
+      <Text style={{ fontSize: 30, textAlign: 'center' }}>{screenName} Timers</Text>
       <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {stopWatchLabels.length} timers.</Text>
       <Text style={{ fontSize: 15, textAlign: 'center' }}>Tap on the timer name to edit the time name.</Text>
       <TextInput style={styles.input} placeholder='Enter timer name here' onSubmitEditing={event => {
