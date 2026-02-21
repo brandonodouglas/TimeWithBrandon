@@ -15,8 +15,11 @@ export default function IntroScreen() {
       />
     <Text style={{textAlign: 'center', fontSize: 15, padding:20}}>TimerWithBrandon uses folders and subfolders to represent time intensive tasks throughout the day. Within each sub folder is a timer which is used to track time, giving you a daily overview of how you view your time.</Text>
     <Text style={{textAlign: 'center', fontSize: 27, padding:10}}>Ready to reclaim your time? Tap the button below! ✨</Text>
+    <TouchableOpacity style={styles.button} onPress={() => {router.back()}}>
+          <Text style={{color: 'white', fontSize: 20, textAlign: 'center'}}>back</Text>
+        </TouchableOpacity>
 
-    <TouchableOpacity style={styles.button} onPress={() => {router.push("/FolderScreen")}}>
+    <TouchableOpacity style={styles.button} onPress={() => {router.navigate("/FolderScreen")}}>
           <Text style={{color: 'white', fontSize: 20, textAlign: 'center'}}>Begin</Text>
         </TouchableOpacity>
 
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#b94b4bff',
     width: 330,
     borderCurve: 'circular',
-    borderRadius: 20,
+    borderRadius: 40,
     padding: 10
   },
 });

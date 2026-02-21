@@ -32,7 +32,7 @@ export default function FolderScreen() {
 
   function newScreen(screenName: string, itemId: string) {
     console.log("Folder with name: " + screenName + " has been clicked on. " + "with id: " + itemId)
-    router.push({pathname: "/TimerScreen", params: {screenName}});
+    router.navigate({pathname: "/TimerScreen", params: {screenName}});
 
 
 

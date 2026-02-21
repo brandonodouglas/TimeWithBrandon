@@ -4,10 +4,12 @@ import StopWatch from './components/StopwatchRelatedComponents/Stopwatch';
 import StopWatchLabel from './components/StopwatchRelatedComponents/StopwatchLabel';
 import uuid from 'react-native-uuid';
 
-import DragList, {DragListRenderItemInfo} from 'react-native-draglist';
+import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import DraggableStopwatches from './components/StopwatchRelatedComponents/DraggableStopwatches';
 import StopWatchDraggable from './components/StopwatchRelatedComponents/StopWatchDraggable';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Button } from '@react-navigation/elements';
+
 
 type StopWatchData = {
   id: string;
@@ -16,11 +18,14 @@ type StopWatchData = {
 const DATA: StopWatchData[] = [];
 // Screen that opens when the user wants to start a timer
 export default function TimerScreen() {
+  const router = useRouter();
+
   const { screenName } = useLocalSearchParams();
   const [idVal, setIdVal] = useState(0);
   const [selectedId, setSelectedId] = useState<string>();
   const [stopWatchLabels, setStopWatchLabels] = useState([{ id: uuid.v4(), label: 'example1' }]); // The name/text of the stopwatches
   const [data, setData] = useState([]);
+
   // Counter which is an interator for the stopwatches
   const [stopWatchDelete, setStopWatchDelete] = useState(false);
   const editStopwatch = () => {
@@ -31,7 +36,7 @@ export default function TimerScreen() {
   }
   return (
     <View style={{ justifyContent: 'center', padding: 20 }}>
-              <Text style={{textAlign: 'center', fontSize: 90}}>⏰</Text>        
+      <Text style={{ textAlign: 'center', fontSize: 90 }}>⏰</Text>
 
       <Text style={{ fontSize: 30, textAlign: 'center' }}>{screenName} Timers</Text>
       <Text style={{ fontSize: 25, textAlign: 'center' }}>You currently have {stopWatchLabels.length} timers.</Text>
@@ -53,14 +58,16 @@ export default function TimerScreen() {
           }}>
             <Text style={{ color: 'black', textAlign: 'center', fontSize: 20, width: 80, height: 30 }}>Delete</Text>
           </TouchableOpacity>
-          
         </View>
         )}
         keyExtractor={(item) => item.id}
       />
 
+<Button onPress={() => {router.back()}}>back</Button>
 
-      
+
+
+
     </View>
   );
 }
