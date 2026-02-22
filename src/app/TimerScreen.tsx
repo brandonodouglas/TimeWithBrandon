@@ -63,8 +63,7 @@ export default function TimerScreen() {
         keyExtractor={(item) => item.id}
       />
 
-<Button onPress={() => {router.back()}}>back</Button>
-
+      
 
 
 

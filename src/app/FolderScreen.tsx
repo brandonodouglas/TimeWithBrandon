@@ -10,15 +10,41 @@ import { Alert, Button, TextInput, GestureResponderEvent, StyleSheet, Text, Touc
 import Folder from './Folder';
 import FolderLabel from './FolderLabel';
 import StopWatchLabel from './components/StopwatchRelatedComponents/StopwatchLabel';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-
-
+// create a storage instance for the folders
 
 export default function FolderScreen() {
   const [editing, setEditing] = useState(false);
   const [folderName, setFolderName] = useState('example1')
   const [stopWatchLabels, setStopWatchLabels] = useState([{ id: uuid.v4(), label: folderName }]) // The name/text of the stopwatches
+
+
+
+  const fetchFolderData = async () => {
+    try {
+      const storedFolders = await AsyncStorage.getItem('folders')
+      if (storedFolders !== null) {
+        console.log(storedFolders)
+      }
+
+    } catch (error) {
+      console.error('Error fetching folders: ', error)
+
+    }
+  }
+
+  const addFolderData = async () => {
+    try {
+      await AsyncStorage.setItem('folders', 'foldervalue')
+
+    } catch (error) {
+      console.error('Error fetching folders: ', error)
+
+
+    }
+  }
 
 
 
@@ -32,7 +58,7 @@ export default function FolderScreen() {
 
   function newScreen(screenName: string, itemId: string) {
     console.log("Folder with name: " + screenName + " has been clicked on. " + "with id: " + itemId)
-    router.navigate({pathname: "/TimerScreen", params: {screenName}});
+    router.push({ pathname: "/TimerScreen", params: { screenName } });
 
 
 
@@ -51,37 +77,45 @@ export default function FolderScreen() {
         console.log(event.nativeEvent.text)
         setStopWatchLabels([...stopWatchLabels, { id: uuid.v4(), label: event.nativeEvent.text }]);
       }} />
-  
-  
+
+
       <FlatList
         data={stopWatchLabels}
-  
+
         renderItem={({ item }) => (<View style={{
           alignItems: 'center',
           flex: 1,
           justifyContent: 'center'
         }}>
-          
+
           <Text style={{ color: 'black', textAlign: 'center', fontSize: 0, fontWeight: "800" }}>{"📁" + item.label}</Text>
-          <Button onPress={() => {setEditing(true)}} title="Edit folder name"></Button>
+          <Button onPress={() => { setEditing(true) }} title="Edit folder name"></Button>
           <Button onPress={() => newScreen(item.label, item.id)} title="new screen"></Button>
           <Button onPress={() => removeItem(item.id)} title="Delete"></Button>
-  
-  
-  
-  
+          <Button onPress={addFolderData} title="Database"></Button>
+          <Button onPress={fetchFolderData} title="Database"></Button>
+
+
+
+
+
+
+
+
+
+
         </View>
-  
+
         )}
-  
-  
+
+
         keyExtractor={(item) => item.id}
-  
+
       />
-  
+
     </View>
-  
-  
+
+
     )
 
   } else {
@@ -98,44 +132,45 @@ export default function FolderScreen() {
           flex: 1,
           justifyContent: 'center'
         }}>
-          
-          <TextInput style={styles.input} placeholder='Enter new folder name' onSubmitEditing={event => {setEditing(false)
-         for (let i = 0; i < stopWatchLabels.length; i++) {
-          console.log('BEFORE: Label: ' + stopWatchLabels[i].label + " and id: " + stopWatchLabels[i].id)
+
+          <TextInput style={styles.input} placeholder='Enter new folder name' onSubmitEditing={event => {
+            setEditing(false)
+            for (let i = 0; i < stopWatchLabels.length; i++) {
+              console.log('BEFORE: Label: ' + stopWatchLabels[i].label + " and id: " + stopWatchLabels[i].id)
 
 
-        }
-        
-         setStopWatchLabels(stopWatchLabels.map(element => ({id: element.id, label:event.nativeEvent.text})))
+            }
 
-          for (let i = 0; i < stopWatchLabels.length; i++) {
-            console.log('AFTER: Label: ' + stopWatchLabels[i].label + " and id: " + stopWatchLabels[i].id)
+            setStopWatchLabels(stopWatchLabels.map(element => ({ id: element.id, label: event.nativeEvent.text })))
+
+            for (let i = 0; i < stopWatchLabels.length; i++) {
+              console.log('AFTER: Label: ' + stopWatchLabels[i].label + " and id: " + stopWatchLabels[i].id)
 
 
-          }
-      }} />
+            }
+          }} />
           <Button onPress={() => editFolderName(item.label, item.id)} title="Edit folder name"></Button>
           <Button onPress={() => newScreen(item.label, item.id)} title="new screen"></Button>
           <Button onPress={() => removeItem(item.id)} title="Delete"></Button>
-  
-  
-  
-  
+
+
+
+
         </View>
-  
+
         )}
-  
-  
+
+
         keyExtractor={(item) => item.id}
-  
+
       />
-  
+
     </View>
-  
-  
+
+
     )
   }
-  
+
 
 
 
