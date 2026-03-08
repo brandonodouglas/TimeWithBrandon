@@ -25,6 +25,8 @@ export default function FolderScreen() {
   }
   const [editing, setEditing] = useState(false);
   const [folderName, setFolderName] = useState('')
+  const [globalStoredFolders, setGlobalStoredFolders] = useState<any[]>([])
+
   const [stopWatchLabels, setStopWatchLabels] = useState<any[]>([])
   // Store folder data within the database itself
   // If just landing
@@ -34,7 +36,7 @@ export default function FolderScreen() {
 
 
   // Get all folders inside of the database
-  const getFolder = async () => {
+  const getAllFolders = async () => {
     const folders = await AsyncStorage.getAllKeys();
     return folders;
   }
@@ -49,6 +51,8 @@ export default function FolderScreen() {
   const clearFolderDatabase = async () => {
     await AsyncStorage.clear();
   }
+
+  
 
 
 
@@ -77,6 +81,8 @@ export default function FolderScreen() {
 
     }
   }
+
+
 
   async function clearAllFolders() {
     await AsyncStorage.clear()
@@ -133,11 +139,14 @@ export default function FolderScreen() {
 
 
 
-  // Removes the folder from the stopwatchlabels list
-  // Need to implement functionality to remove item from the database local storage
-  function removeItem(idToDelete: string) {
+    // Deletes folder item from the database AND the stopwatch list given unique id string
+
+  async function removeItem(idToDelete: string) {
     setStopWatchLabels(stopWatchLabels.filter((listValue) => listValue.id !== idToDelete))
     // Remove from local database
+    await AsyncStorage.removeItem(idToDelete)
+  
+
 
 
 
@@ -170,9 +179,8 @@ export default function FolderScreen() {
         <TextInput style={styles.input} placeholder='Enter folder name here' onSubmitEditing={event => {
           let myID = uuid.v4()
           setStopWatchLabels([...stopWatchLabels, { id: myID, label: event.nativeEvent.text }]);
-          addFolderData(myID, event.nativeEvent.text)
-          formatDBFolders()
-
+          addFolderData(event.nativeEvent.text, myID) // this add data into the database
+          console.log('Get all folders is currently:' + getAllFolders())
         }} />
 
 
