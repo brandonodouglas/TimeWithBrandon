@@ -37,8 +37,15 @@ export default function FolderScreen() {
 
   // Get all folders inside of the database
   const getAllFolders = async () => {
-    const folders = await AsyncStorage.getAllKeys();
-    return folders;
+    const folderKeys = await AsyncStorage.getAllKeys(); // returns a string
+    for (const key of folderKeys) {
+      let arrayKey = key // key
+      let arrayValue = await AsyncStorage.getItem(arrayKey) // value
+      setGlobalStoredFolders([...stopWatchLabels, { id: arrayKey, label: arrayValue}]);
+    
+    }
+
+    return folderKeys;
   }
   // If the folder is an empty string array, the folders are empty
   const getFolderCount = async () => {
@@ -60,7 +67,6 @@ export default function FolderScreen() {
   const fetchAllFolderData = async () => {
     try {
       const storedFolders = await AsyncStorage.getAllKeys();
-      console.log('storedFolders contents in the db is currently: ' + storedFolders)
       return storedFolders;
 
     } catch (error) {
@@ -88,9 +94,8 @@ export default function FolderScreen() {
     await AsyncStorage.clear()
     console.log("All folders have now been cleared.")
     const clearedFolderSet = await AsyncStorage.getAllKeys()
-    console.log('The folder set now looks like: ' + clearedFolderSet)
     // Clear the folders from the database
-    setStopWatchLabels([])
+    setGlobalStoredFolders([])
     console.log(clearedFolderSet.length)
   }
 
@@ -102,7 +107,6 @@ export default function FolderScreen() {
     let folderArray = [] // This stores the formatted array
 
     if (formattedArray == null) {
-      console.log("No elements in the array")
       return null;
     } else {
       for (const values of formattedArray) {
@@ -115,7 +119,6 @@ export default function FolderScreen() {
       }
 
     }
-    console.log(folderArray.toString())
     return folderArray;
   
     
@@ -126,7 +129,6 @@ export default function FolderScreen() {
   async function addFolderData(foldername: string, id: string) {
     try {
       await AsyncStorage.setItem(id, foldername)
-      console.log("Added data into the database")
     } catch (error) {
       console.error('Error adding folder to database: ', error)
     }
@@ -143,6 +145,7 @@ export default function FolderScreen() {
 
   async function removeItem(idToDelete: string) {
     setStopWatchLabels(stopWatchLabels.filter((listValue) => listValue.id !== idToDelete))
+    setGlobalStoredFolders(stopWatchLabels.filter((listValue) => listValue.id !== idToDelete))
     // Remove from local database
     await AsyncStorage.removeItem(idToDelete)
   
@@ -166,21 +169,23 @@ export default function FolderScreen() {
 // there's folders found within the database, display them basically.
 
 
+
     console.log('[DATABASE]: Beginning storage.') // Used for the developer
     // get the folders from the database
-    console.log('Folders from the database: ' + fetchAllFolderData())
-    console.log(stopWatchLabels) // contains list of all the folders within the array
+    
 
-
-    // If the user hasn't clicked on a folder to change the folder name itself
+    // if there's folders in the datbase
+    if (globalStoredFolders.length != 0) {
+      console.log(globalStoredFolders.length)
+      // If the user hasn't clicked on a folder to change the folder name itself
     if (!editing) {
       return (<View style={{ justifyContent: 'center', padding: 20 }}>
         <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Capture your folders here.</Text>
         <TextInput style={styles.input} placeholder='Enter folder name here' onSubmitEditing={event => {
           let myID = uuid.v4()
           setStopWatchLabels([...stopWatchLabels, { id: myID, label: event.nativeEvent.text }]);
+          setGlobalStoredFolders(stopWatchLabels)
           addFolderData(event.nativeEvent.text, myID) // this add data into the database
-          console.log('Get all folders is currently:' + getAllFolders())
         }} />
 
 
@@ -276,6 +281,16 @@ export default function FolderScreen() {
 
 
       )
+    } 
+    
+
+    
+    }
+    // When there's folders in the database
+    else {
+      console.log("hello")
+      return (<View><Text>You currently have no folers in the database! Enter some below now!</Text></View>)
+      // Here we 
     }
 
 
