@@ -1,6 +1,6 @@
 # ⏰ TimeWithBrandon
 
-## ❓ What is it?
+## 👀 What is it?
 A productivity app designed specifically 
 for people with ADHD, Autism and mental 
 health needs
@@ -20,4 +20,7 @@ neurodivergent people actually think with a key focus on routines, time tracking
 React Native
 
 ## ✅ Status
-In development!
+Currently in development.
+MVP Release: 1 September 2026.
+Full Release: 1 Jan 2027.
+
