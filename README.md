@@ -1,4 +1,4 @@
-# ⚡ Hyperfocify
+# ⚡ TimeWithBrandon
 ## 👀 What is it?
 A productivity app designed specifically 
 for people with ADHD, Autism and mental 
@@ -28,6 +28,6 @@ React Native
 As someone with neurodivergent family members and friends, I realised there were not many software in the market to help those who struggle with everyday tasks or life in general. This means that not only can I develop my coding skills, but I can build more purpose built software which aligns wit my core values of helping the disadvantaged.
 
 ## ✅ Status
-Currently in development
-MVP Release: 1 September 2026
-Full Release: 1 January 2027
+- Currently in development
+- MVP Release: 1 September 2026
+- Full Release: 1 January 2027
