@@ -1,4 +1,4 @@
-# [⏰ TimeWithBrandion]
+# ⏰ TimeWithBrandon
 
 ## ❓ What is it?
 A productivity app designed specifically 
