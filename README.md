@@ -1,4 +1,4 @@
-# ⚡ TimeWithBrandon
+# ⏰ TimeWithBrandon
 ## 👀 What is it?
 A productivity app designed specifically 
 for people with ADHD, Autism and mental 
